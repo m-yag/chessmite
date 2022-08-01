@@ -98,18 +98,26 @@ const Chessmith = () => {
   const gridStyle = {
     display: 'grid',
     gridTemplateColumns: `repeat(${boardDimension}, 5rem)`,
-    gridTemplateRows: `repeat(${boardDimension}, 5rem)`
+    gridTemplateRows: `repeat(${boardDimension}, 5rem)`,
   }
 
   return (
     <div>
-      <div className="grid" style={gridStyle}>
-        {tileList}
+
+      <div className="center">
+        <div className="grid" style={gridStyle}>
+          {tileList}
+        </div>
       </div>
+
       <br/>
-      <div>
-        {gameOver ? `Game Over! Score: ${score}` : `Score: ${score}`}
+
+      <div className="center">
+          <p className="center">
+          {gameOver ? `Game Over! Score: ${score}` : `Score: ${score}`}
+          </p>
       </div>
+
     </div>
   )
 }

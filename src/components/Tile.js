@@ -3,7 +3,12 @@ import React from 'react'
 const Tile = ({type, active, strikes, onClick}) => {
 
   const tempStyle = {
-    fontSize: 16
+    fontSize: 16,
+    fontWeight: 700,
+    borderStyle: "none",
+    display: "block",
+    width: "78px",
+    height: "98%",
   }
 
   const getStrikeColor = (strikes) => {
