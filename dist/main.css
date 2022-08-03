@@ -1,0 +1,36 @@
+.unclickable {
+  border-color: grey;
+}
+
+.clickable {
+  border-style: solid !important;
+  border-color: red;
+}
+
+.zeroStrike {
+  background: lightgray;
+}
+
+.oneStrike {
+  background: #f5ce42;
+}
+
+.twoStrike {
+  background: #47d147;
+}
+
+.threeStrike {
+  background: white;
+}
+
+.grid {
+  justify-items: center;
+  justify-content: center;
+/*  gap: 1rem; */
+}
+
+.center {
+  text-align: center;
+  margin: auto;
+  width: 50%;
+}
