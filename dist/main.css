@@ -1,14 +1,17 @@
 .unclickable {
-  border-color: grey;
+  border-style: none;
+  color: #555;
 }
 
 .clickable {
-  border-style: solid !important;
+  border-style: solid;
   border-color: red;
+  border-width: medium;
+  color: black;
 }
 
 .zeroStrike {
-  background: lightgray;
+  background: #959595;
 }
 
 .oneStrike {
@@ -26,7 +29,6 @@
 .grid {
   justify-items: center;
   justify-content: center;
-/*  gap: 1rem; */
 }
 
 .center {
