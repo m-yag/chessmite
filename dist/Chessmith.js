@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './main.css';
 import Tile from './Tile';
-import { oneTileMovement } from './tileMovement';
+import { oneTileMovement, twoTileMovement } from './tileMovement';
 
 const Chessmith = () => {
   // Square dimension of the board
@@ -9,6 +9,19 @@ const Chessmith = () => {
 
   /*********************************************/
 
+  const [layerOne] = useState(() => {
+    let array = [];
+
+    for (let i = 0; i < boardDimension; i++) {
+      array[i] = [];
+
+      for (let j = 0; j < boardDimension; j++) {
+        array[i][j] = Math.ceil(Math.random() * 2);
+      }
+    }
+
+    return array;
+  });
   const [activeTiles, setActiveTiles] = useState(() => {
     return Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(true));
   });
@@ -18,9 +31,16 @@ const Chessmith = () => {
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
   /*********************************************/
-  // Testing board
 
-  const layerOne = Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(1));
+  /* Testing board *
+  const layerOne = [
+    [1, 2, 1, 1, 2],
+    [1, 1, 1, 2, 1],
+    [2, 1, 2, 1, 2],
+    [2, 2, 1, 2, 1],
+    [2, 1, 1, 1, 1]
+  ]
+  /*****************/
 
   const incrementStrike = (i, j) => {
     const newStrikeCounter = [...strikeCounter];
@@ -33,10 +53,17 @@ const Chessmith = () => {
     setScore(score + 1);
 
     if (type === 1) {
-      var {
+      let {
         newTileStatus,
         activeTileCount
       } = oneTileMovement(i, j, boardDimension, strikeCounter);
+      if (activeTileCount === 0) setGameOver(true);
+      setActiveTiles(newTileStatus);
+    } else {
+      let {
+        newTileStatus,
+        activeTileCount
+      } = twoTileMovement(i, j, boardDimension, strikeCounter);
       if (activeTileCount === 0) setGameOver(true);
       setActiveTiles(newTileStatus);
     }
