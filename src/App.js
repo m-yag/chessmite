@@ -2,13 +2,8 @@
 import Chessmith from './components/Chessmith'
 
 const App = () => {
-  const tempStyle = {
-    width: "100%",
-    height: "100%"
-  }
-
   return (
-    <div style={tempStyle}>
+    <div>
       <Chessmith />
     </div>
   )

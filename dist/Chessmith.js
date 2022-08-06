@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './main.css';
 import Tile from './Tile';
-import { oneTileMovement, twoTileMovement } from './tileMovement';
+import { numTileMovement } from './tileMovement';
 
 const Chessmith = () => {
   // Square dimension of the board
@@ -56,14 +56,14 @@ const Chessmith = () => {
       let {
         newTileStatus,
         activeTileCount
-      } = oneTileMovement(i, j, boardDimension, strikeCounter);
+      } = numTileMovement(i, j, 1, boardDimension, strikeCounter);
       if (activeTileCount === 0) setGameOver(true);
       setActiveTiles(newTileStatus);
     } else {
       let {
         newTileStatus,
         activeTileCount
-      } = twoTileMovement(i, j, boardDimension, strikeCounter);
+      } = numTileMovement(i, j, 2, boardDimension, strikeCounter);
       if (activeTileCount === 0) setGameOver(true);
       setActiveTiles(newTileStatus);
     }
