@@ -2,8 +2,15 @@
 import Chessmith from './components/Chessmith'
 
 const App = () => {
+  const tempStyle = {
+    width: "100%",
+    height: "100%"
+  }
+
   return (
-    <Chessmith />
+    <div style={tempStyle}>
+      <Chessmith />
+    </div>
   )
 }
 

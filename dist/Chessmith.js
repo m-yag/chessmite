@@ -5,7 +5,7 @@ import { oneTileMovement, twoTileMovement } from './tileMovement';
 
 const Chessmith = () => {
   // Square dimension of the board
-  const boardDimension = 5; // States
+  const boardDimension = 6; // States
 
   /*********************************************/
 
@@ -85,8 +85,8 @@ const Chessmith = () => {
 
   const gridStyle = {
     display: 'grid',
-    gridTemplateColumns: `repeat(${boardDimension}, 5rem)`,
-    gridTemplateRows: `repeat(${boardDimension}, 5rem)`
+    gridTemplateColumns: `repeat(${boardDimension}, 15vmin)`,
+    gridTemplateRows: `repeat(${boardDimension}, 15vmin)`
   };
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     className: "center"

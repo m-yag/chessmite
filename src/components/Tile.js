@@ -6,8 +6,10 @@ const Tile = ({type, active, strikes, onClick}) => {
     fontSize: 16,
     fontWeight: 700,
     display: "block",
-    width: "78px",
-    height: "98%",
+//    width: "78px",
+//    height: "98%",
+    width: "14.6vmin",
+    height: "14.6vmin"
   }
 
   const getStrikeColor = (strikes) => {

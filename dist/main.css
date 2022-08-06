@@ -6,7 +6,7 @@
 .clickable {
   border-style: solid;
   border-color: red;
-  border-width: medium;
+  border-width: 0.8vmin;
   color: black;
 }
 
