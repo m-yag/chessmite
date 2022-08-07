@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; // styles & react components
+
 import './main.css';
-import Tile from './Tile';
+import Tile from './Tile'; // javascript modules
+
+import { getTileCategory } from './tileProbability';
 import { numTileMovement } from './tileMovement';
 
 const Chessmith = () => {
   // Square dimension of the board
-  const boardDimension = 6; // States
+  const boardDimension = 6; // Tile probablity categories/weights
+
+  const tileCategories = [2, 1];
+  const tileWeights = [4, 6]; // States
 
   /*********************************************/
 
@@ -16,7 +22,8 @@ const Chessmith = () => {
       array[i] = [];
 
       for (let j = 0; j < boardDimension; j++) {
-        array[i][j] = Math.ceil(Math.random() * 2);
+        let tile = getTileCategory(tileCategories, tileWeights);
+        array[i][j] = tile;
       }
     }
 
