@@ -10,8 +10,8 @@ const Chessmith = () => {
   // Square dimension of the board
   const boardDimension = 6; // Tile probablity categories/weights
 
-  const tileCategories = [3, 2, 1];
-  const tileWeights = [3, 5, 8]; // States
+  const tileCategories = [4, 3, 2, 1];
+  const tileWeights = [2, 3, 5, 8]; // States
 
   /*********************************************/
 
@@ -22,7 +22,12 @@ const Chessmith = () => {
       array[i] = [];
 
       for (let j = 0; j < boardDimension; j++) {
-        let tile = getTileCategory(tileCategories, tileWeights);
+        let tile = getTileCategory(tileCategories, tileWeights); // while tile category = 4 AND middle tile: get another tile category
+
+        while (tile === 4 && (i === 2 || i === 3) && (j === 2 || j === 3)) {
+          tile = getTileCategory(tileCategories, tileWeights);
+        }
+
         array[i][j] = tile;
       }
     }
@@ -41,11 +46,12 @@ const Chessmith = () => {
 
   /* Testing board *
   const layerOne = [
-    [1, 2, 1, 1, 2],
-    [1, 1, 1, 2, 1],
-    [2, 1, 2, 1, 2],
-    [2, 2, 1, 2, 1],
-    [2, 1, 1, 1, 1]
+    [1, 2, 1, 1, 2, 1],
+    [1, 1, 1, 2, 1, 1],
+    [2, 1, 2, 1, 2, 2],
+    [2, 2, 1, 2, 1, 1],
+    [2, 1, 1, 1, 1, 2],
+    [1, 1, 2, 1, 2, 1]
   ]
   /*****************/
 
@@ -73,11 +79,18 @@ const Chessmith = () => {
       } = numTileMovement(i, j, 2, boardDimension, strikeCounter);
       if (activeTileCount === 0) setGameOver(true);
       setActiveTiles(newTileStatus);
-    } else {
+    } else if (type === 3) {
       let {
         newTileStatus,
         activeTileCount
       } = numTileMovement(i, j, 3, boardDimension, strikeCounter);
+      if (activeTileCount === 0) setGameOver(true);
+      setActiveTiles(newTileStatus);
+    } else {
+      let {
+        newTileStatus,
+        activeTileCount
+      } = numTileMovement(i, j, 4, boardDimension, strikeCounter);
       if (activeTileCount === 0) setGameOver(true);
       setActiveTiles(newTileStatus);
     }
