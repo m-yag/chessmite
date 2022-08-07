@@ -12,8 +12,8 @@ const Chessmith = () => {
   // Square dimension of the board
   const boardDimension = 6
   // Tile probablity categories/weights
-  const tileCategories = [2, 1]
-  const tileWeights = [4, 6]
+  const tileCategories = [3, 2, 1]
+  const tileWeights = [3, 5, 8]
 
   // States
   /*********************************************/
@@ -62,8 +62,12 @@ const Chessmith = () => {
       let {newTileStatus, activeTileCount} = numTileMovement(i, j, 1, boardDimension, strikeCounter)
       if(activeTileCount === 0) setGameOver(true)
       setActiveTiles(newTileStatus)
-    } else {
+    } else if(type === 2) {
       let {newTileStatus, activeTileCount} = numTileMovement(i, j, 2, boardDimension, strikeCounter)
+      if(activeTileCount === 0) setGameOver(true)
+      setActiveTiles(newTileStatus)
+    } else {
+      let {newTileStatus, activeTileCount} = numTileMovement(i, j, 3, boardDimension, strikeCounter)
       if(activeTileCount === 0) setGameOver(true)
       setActiveTiles(newTileStatus)
     }
