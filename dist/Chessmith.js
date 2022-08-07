@@ -4,14 +4,14 @@ import './main.css';
 import Tile from './Tile'; // javascript modules
 
 import { getTileCategory } from './tileProbability';
-import { numTileMovement } from './tileMovement';
+import { numTileMovement, knightTileMovement } from './tileMovement';
 
 const Chessmith = () => {
   // Square dimension of the board
   const boardDimension = 6; // Tile probablity categories/weights
 
   const tileCategories = [4, 3, 2, 1];
-  const tileWeights = [2, 3, 5, 8]; // States
+  const tileWeights = [2, 3, 4, 7]; // States
 
   /*********************************************/
 
@@ -22,7 +22,9 @@ const Chessmith = () => {
       array[i] = [];
 
       for (let j = 0; j < boardDimension; j++) {
-        let tile = getTileCategory(tileCategories, tileWeights); // while tile category = 4 AND middle tile: get another tile category
+        let tile = getTileCategory(tileCategories, tileWeights); // if tile category = 3, randomly select knight tile or 'three' tile
+
+        if (tile === 3) tile = Math.random() >= 0.5 ? '♘' : 3; // if tile category = 4 and middle tile, get a different category
 
         while (tile === 4 && (i === 2 || i === 3) && (j === 2 || j === 3)) {
           tile = getTileCategory(tileCategories, tileWeights);
@@ -86,11 +88,18 @@ const Chessmith = () => {
       } = numTileMovement(i, j, 3, boardDimension, strikeCounter);
       if (activeTileCount === 0) setGameOver(true);
       setActiveTiles(newTileStatus);
-    } else {
+    } else if (type === 4) {
       let {
         newTileStatus,
         activeTileCount
       } = numTileMovement(i, j, 4, boardDimension, strikeCounter);
+      if (activeTileCount === 0) setGameOver(true);
+      setActiveTiles(newTileStatus);
+    } else {
+      let {
+        newTileStatus,
+        activeTileCount
+      } = knightTileMovement(i, j, boardDimension, strikeCounter);
       if (activeTileCount === 0) setGameOver(true);
       setActiveTiles(newTileStatus);
     }
