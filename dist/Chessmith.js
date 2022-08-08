@@ -3,39 +3,19 @@ import React, { useState } from 'react'; // styles & react components
 import './main.css';
 import Tile from './Tile'; // javascript modules
 
-import { getTileCategory } from './tileProbability';
+import { randPopulateLayer } from './tileProbability';
 import { numTileMovement, knightTileMovement } from './tileMovement';
 
 const Chessmith = () => {
   // Square dimension of the board
-  const boardDimension = 6; // Tile probablity categories/weights
-
-  const tileCategories = [4, 3, 2, 1];
-  const tileWeights = [2, 3, 4, 7]; // States
+  const boardDimension = 6; // States
 
   /*********************************************/
 
-  const [layerOne] = useState(() => {
-    let array = [];
-
-    for (let i = 0; i < boardDimension; i++) {
-      array[i] = [];
-
-      for (let j = 0; j < boardDimension; j++) {
-        let tile = getTileCategory(tileCategories, tileWeights); // if tile category = 3, randomly select knight tile or 'three' tile
-
-        if (tile === 3) tile = Math.random() >= 0.5 ? '♘' : 3; // if tile category = 4 and middle tile, get a different category
-
-        while (tile === 4 && (i === 2 || i === 3) && (j === 2 || j === 3)) {
-          tile = getTileCategory(tileCategories, tileWeights);
-        }
-
-        array[i][j] = tile;
-      }
-    }
-
-    return array;
-  });
+  const [layerOne] = useState(randPopulateLayer(boardDimension));
+  const [layerTwo] = useState(randPopulateLayer(boardDimension));
+  const [layerThree] = useState(randPopulateLayer(boardDimension));
+  const [curLayer, setCurLayer] = useState(layerOne);
   const [activeTiles, setActiveTiles] = useState(() => {
     return Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(true));
   });
@@ -45,8 +25,12 @@ const Chessmith = () => {
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
   /*********************************************/
+  //  Debug
+  //  console.log(layerOne)
+  //  console.log(layerTwo)
+  //  console.log(layerThree)
 
-  /* Testing board *
+  /*****************
   const layerOne = [
     [1, 2, 1, 1, 2, 1],
     [1, 1, 1, 2, 1, 1],
@@ -66,6 +50,23 @@ const Chessmith = () => {
   const tileClick = (type, i, j) => {
     incrementStrike(i, j);
     setScore(score + 1);
+    setCurLayer(() => {
+      let newLayer = [];
+
+      for (let r = 0; r < boardDimension; r++) {
+        newLayer[r] = [];
+
+        for (let c = 0; c < boardDimension; c++) {
+          if (r === i && c === j) {
+            newLayer[r][c] = strikeCounter[i][j] === 1 ? layerTwo[i][j] : layerThree[i][j];
+          } else {
+            newLayer[r][c] = curLayer[r][c];
+          }
+        }
+      }
+
+      return newLayer;
+    });
 
     if (type === 1) {
       let {
@@ -111,10 +112,10 @@ const Chessmith = () => {
     for (let j = 0; j < boardDimension; j++, k++) {
       tileList[i][j] = /*#__PURE__*/React.createElement(Tile, {
         key: k,
-        type: layerOne[i][j],
+        type: curLayer[i][j],
         active: activeTiles[i][j],
         strikes: strikeCounter[i][j],
-        onClick: () => tileClick(layerOne[i][j], i, j)
+        onClick: () => tileClick(curLayer[i][j], i, j)
       });
     }
   }

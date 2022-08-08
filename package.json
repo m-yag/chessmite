@@ -1,6 +1,6 @@
 {
   "name": "chessmith",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "main": "dist/Chessmith.js",
   "private": false,
   "babel": {

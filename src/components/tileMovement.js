@@ -1,4 +1,4 @@
-// number tile movements (one tile, two tile, etc.)
+// numeric tile movements ('one' tile, 'two' tile, etc.)
 export const numTileMovement = (i, j, num, boardDimension, strikeCounter) => {
   let activeTileCount = 0
 
