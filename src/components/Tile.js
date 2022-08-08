@@ -3,11 +3,9 @@ import React from 'react'
 const Tile = ({type, active, strikes, onClick}) => {
 
   const tempStyle = {
-    fontSize: 16,
+    fontSize: "4.8vmin",
     fontWeight: 700,
     display: "block",
-//    width: "78px",
-//    height: "98%",
     width: "14.6vmin",
     height: "14.6vmin"
   }
