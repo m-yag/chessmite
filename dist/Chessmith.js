@@ -4,7 +4,7 @@ import './main.css';
 import Tile from './Tile'; // javascript modules
 
 import { randPopulateLayer } from './tileProbability';
-import { numTileMovement, knightTileMovement } from './tileMovement';
+import { numTileMovement, knightTileMovement, bishopTileMovement } from './tileMovement';
 
 const Chessmith = () => {
   // Square dimension of the board
@@ -96,11 +96,18 @@ const Chessmith = () => {
       } = numTileMovement(i, j, 4, boardDimension, strikeCounter);
       if (activeTileCount === 0) setGameOver(true);
       setActiveTiles(newTileStatus);
-    } else {
+    } else if (type === '♘') {
       let {
         newTileStatus,
         activeTileCount
       } = knightTileMovement(i, j, boardDimension, strikeCounter);
+      if (activeTileCount === 0) setGameOver(true);
+      setActiveTiles(newTileStatus);
+    } else if (type === '♗') {
+      let {
+        newTileStatus,
+        activeTileCount
+      } = bishopTileMovement(i, j, boardDimension, strikeCounter);
       if (activeTileCount === 0) setGameOver(true);
       setActiveTiles(newTileStatus);
     }

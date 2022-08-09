@@ -24,7 +24,8 @@ export const randPopulateLayer = boardDimension => {
     array[i] = [];
 
     for (let j = 0; j < boardDimension; j++) {
-      let tile = getTileCategory(tileCategories, tileWeights); // if tile category = 3, randomly select knight tile or 'three tile
+      let tile = getTileCategory(tileCategories, tileWeights);
+      if (tile === 2) tile = Math.random() >= 0.5 ? '♗' : 2; // if tile category = 3, randomly select knight tile or 'three tile
 
       if (tile === 3) tile = Math.random() >= 0.5 ? '♘' : 3; // if tile category = 4 && middle tile, get a different category
 

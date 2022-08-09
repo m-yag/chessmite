@@ -117,4 +117,49 @@ export const knightTileMovement = (i, j, boardDimension, strikeCounter) => {
     newTileStatus,
     activeTileCount
   };
+}; // bishop tile movement
+
+export const bishopTileMovement = (i, j, boardDimension, strikeCounter) => {
+  let activeTileCount = 0;
+  let newTileStatus = Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(false));
+
+  if (i > 0 && j > 0) {
+    // top-left
+    let dist = i < j ? i : j; // min(0,0)
+
+    if (strikeCounter[i - dist][j - dist] < 3) activeTileCount++;
+    newTileStatus[i - dist][j - dist] = true;
+  }
+
+  if (i > 0 && j < boardDimension - 1) {
+    // top-right
+    let last = boardDimension - 1;
+    let dist = i < last - j ? i : last - j; // min(0, last)
+
+    if (strikeCounter[i - dist][j + dist] < 3) activeTileCount++;
+    newTileStatus[i - dist][j + dist] = true;
+  }
+
+  if (i < boardDimension - 1 && j < boardDimension - 1) {
+    // bottom-right
+    let last = boardDimension - 1;
+    let dist = last - i < last - j ? last - i : last - j; // min(last, last)
+
+    if (strikeCounter[i + dist][j + dist] < 3) activeTileCount++;
+    newTileStatus[i + dist][j + dist] = true;
+  }
+
+  if (i < boardDimension - 1 && j > 0) {
+    // bottom-left
+    let last = boardDimension - 1;
+    let dist = last - i < j ? last - i : j; // min(last, 0)
+
+    if (strikeCounter[i + dist][j - dist] < 3) activeTileCount++;
+    newTileStatus[i + dist][j - dist] = true;
+  }
+
+  return {
+    newTileStatus,
+    activeTileCount
+  };
 };
