@@ -27,5 +27,13 @@ const App = () => {
 }
 ```
 
+## To-do List
+
+* ~~Add numeric tiles.~~
+* Add chess tiles.
+* Add wildcard tile.
+* Refine styling.
+* Improve component useability/customizability.
+
 ## License
 This project is licensed under the [MIT License](https://choosealicense.com/licenses/mit/)

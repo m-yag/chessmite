@@ -121,6 +121,8 @@ export const knightTileMovement = (i, j, boardDimension, strikeCounter) => {
 
 export const bishopTileMovement = (i, j, boardDimension, strikeCounter) => {
   let activeTileCount = 0;
+  let bound = boardDimension - 1; // last index of boardDimension
+
   let newTileStatus = Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(false));
 
   if (i > 0 && j > 0) {
@@ -133,8 +135,7 @@ export const bishopTileMovement = (i, j, boardDimension, strikeCounter) => {
 
   if (i > 0 && j < boardDimension - 1) {
     // top-right
-    let last = boardDimension - 1;
-    let dist = i < last - j ? i : last - j; // min(0, last)
+    let dist = i < bound - j ? i : bound - j; // min(0, bound)
 
     if (strikeCounter[i - dist][j + dist] < 3) activeTileCount++;
     newTileStatus[i - dist][j + dist] = true;
@@ -142,8 +143,7 @@ export const bishopTileMovement = (i, j, boardDimension, strikeCounter) => {
 
   if (i < boardDimension - 1 && j < boardDimension - 1) {
     // bottom-right
-    let last = boardDimension - 1;
-    let dist = last - i < last - j ? last - i : last - j; // min(last, last)
+    let dist = bound - i < bound - j ? bound - i : bound - j; // min(bound, bound)
 
     if (strikeCounter[i + dist][j + dist] < 3) activeTileCount++;
     newTileStatus[i + dist][j + dist] = true;
@@ -151,8 +151,7 @@ export const bishopTileMovement = (i, j, boardDimension, strikeCounter) => {
 
   if (i < boardDimension - 1 && j > 0) {
     // bottom-left
-    let last = boardDimension - 1;
-    let dist = last - i < j ? last - i : j; // min(last, 0)
+    let dist = bound - i < j ? bound - i : j; // min(bound, 0)
 
     if (strikeCounter[i + dist][j - dist] < 3) activeTileCount++;
     newTileStatus[i + dist][j - dist] = true;
