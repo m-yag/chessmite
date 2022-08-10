@@ -68,48 +68,48 @@ const Chessmith = () => {
       return newLayer;
     });
 
-    if (type === 1) {
-      let {
-        newTileStatus,
-        activeTileCount
-      } = numTileMovement(i, j, 1, boardDimension, strikeCounter);
-      if (activeTileCount === 0) setGameOver(true);
-      setActiveTiles(newTileStatus);
-    } else if (type === 2) {
-      let {
-        newTileStatus,
-        activeTileCount
-      } = numTileMovement(i, j, 2, boardDimension, strikeCounter);
-      if (activeTileCount === 0) setGameOver(true);
-      setActiveTiles(newTileStatus);
-    } else if (type === 3) {
-      let {
-        newTileStatus,
-        activeTileCount
-      } = numTileMovement(i, j, 3, boardDimension, strikeCounter);
-      if (activeTileCount === 0) setGameOver(true);
-      setActiveTiles(newTileStatus);
-    } else if (type === 4) {
-      let {
-        newTileStatus,
-        activeTileCount
-      } = numTileMovement(i, j, 4, boardDimension, strikeCounter);
-      if (activeTileCount === 0) setGameOver(true);
-      setActiveTiles(newTileStatus);
-    } else if (type === '♘') {
-      let {
-        newTileStatus,
-        activeTileCount
-      } = knightTileMovement(i, j, boardDimension, strikeCounter);
-      if (activeTileCount === 0) setGameOver(true);
-      setActiveTiles(newTileStatus);
-    } else if (type === '♗') {
-      let {
-        newTileStatus,
-        activeTileCount
-      } = bishopTileMovement(i, j, boardDimension, strikeCounter);
-      if (activeTileCount === 0) setGameOver(true);
-      setActiveTiles(newTileStatus);
+    switch (type) {
+      case 1: // numeric
+
+      case 2:
+      case 3:
+      case 4:
+        {
+          let {
+            newTileStatus,
+            activeTileCount
+          } = numTileMovement(i, j, type, boardDimension, strikeCounter);
+          if (activeTileCount === 0) setGameOver(true);
+          setActiveTiles(newTileStatus);
+        }
+        break;
+
+      case '♘':
+        {
+          // knight
+          let {
+            newTileStatus,
+            activeTileCount
+          } = knightTileMovement(i, j, boardDimension, strikeCounter);
+          if (activeTileCount === 0) setGameOver(true);
+          setActiveTiles(newTileStatus);
+        }
+        break;
+
+      case '♗':
+        {
+          // bishop
+          let {
+            newTileStatus,
+            activeTileCount
+          } = bishopTileMovement(i, j, boardDimension, strikeCounter);
+          if (activeTileCount === 0) setGameOver(true);
+          setActiveTiles(newTileStatus);
+        }
+        break;
+
+      default:
+        console.log("No matching tile found!");
     }
   };
 
