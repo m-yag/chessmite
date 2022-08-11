@@ -1,6 +1,6 @@
 // Tile probability categories/weights
-const tileCategories = [4, 3, 2, 1];
-const tileWeights = [2, 3, 4, 7]; // Randomly determined tile based on weighted chance.
+const tileCategories = [4, '♗', '♘', 3, 2, 1];
+const tileWeights = [2, 3, 3, 3, 4, 5]; // Randomly determined tile based on weighted chance.
 
 const getTileCategory = (categories, weights) => {
   let totalWeight = 0;
@@ -24,10 +24,7 @@ export const randPopulateLayer = boardDimension => {
     array[i] = [];
 
     for (let j = 0; j < boardDimension; j++) {
-      let tile = getTileCategory(tileCategories, tileWeights);
-      if (tile === 2) tile = Math.random() >= 0.5 ? '♗' : 2; // if tile category = 3, randomly select knight tile or 'three tile
-
-      if (tile === 3) tile = Math.random() >= 0.5 ? '♘' : 3; // if tile category = 4 && middle tile, get a different category
+      let tile = getTileCategory(tileCategories, tileWeights); // if tile category = 4 && middle tile, get a different category
 
       while (tile === 4 && (i === 2 || i === 3) && (j === 2 || j === 3)) {
         tile = getTileCategory(tileCategories, tileWeights);
