@@ -6,7 +6,12 @@ import Tile from './Tile'
 
 // javascript modules
 import {randPopulateLayer} from './tileProbability'
-import {numTileMovement, knightTileMovement, bishopTileMovement} from './tileMovement'
+import {
+  numTileMovement,
+  knightTileMovement,
+  bishopTileMovement,
+  rookTileMovement
+} from './tileMovement'
 
 const Chessmith = () => {
   // Square dimension of the board
@@ -79,19 +84,25 @@ const Chessmith = () => {
         let {newTileStatus, activeTileCount} = numTileMovement(i, j, type, boardDimension, strikeCounter)
         if(activeTileCount === 0) setGameOver(true)
         setActiveTiles(newTileStatus)
-      } break;
+      } break
 
       case '♘': {     // knight
         let {newTileStatus, activeTileCount} = knightTileMovement(i, j, boardDimension, strikeCounter)
         if(activeTileCount === 0) setGameOver(true)
         setActiveTiles(newTileStatus)
-       } break;
+       } break
 
       case '♗': {     // bishop
         let {newTileStatus, activeTileCount} = bishopTileMovement(i, j, boardDimension, strikeCounter)
         if(activeTileCount === 0) setGameOver(true)
         setActiveTiles(newTileStatus)
-      } break;
+      } break
+
+      case '♖': {     // rook
+        let {newTileStatus, activeTileCount} = rookTileMovement(i, j, boardDimension, strikeCounter)
+        if(activeTileCount === 0) setGameOver(true)
+        setActiveTiles(newTileStatus)
+      } break
 
       default:
         console.log("No matching tile found!")

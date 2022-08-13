@@ -1,6 +1,6 @@
 // Tile probability categories/weights
-const tileCategories = [4, '♗', '♘', 3, 2, 1];
-const tileWeights = [2, 3, 3, 3, 4, 5]; // Randomly determined tile based on weighted chance.
+const tileCategories = [4, '♖', '♗', '♘', 3, 2, 1];
+const tileWeights = [2, 3, 3, 3, 3, 4, 5]; // Randomly determined tile based on weighted chance.
 
 const getTileCategory = (categories, weights) => {
   let totalWeight = 0;
