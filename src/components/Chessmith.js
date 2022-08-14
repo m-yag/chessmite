@@ -10,7 +10,8 @@ import {
   numTileMovement,
   knightTileMovement,
   bishopTileMovement,
-  rookTileMovement
+  rookTileMovement,
+  queenTileMovement
 } from './tileMovement'
 
 const Chessmith = () => {
@@ -100,6 +101,12 @@ const Chessmith = () => {
 
       case '♖': {     // rook
         let {newTileStatus, activeTileCount} = rookTileMovement(i, j, boardDimension, strikeCounter)
+        if(activeTileCount === 0) setGameOver(true)
+        setActiveTiles(newTileStatus)
+      } break
+
+      case '♕': {     // queen
+        let {newTileStatus, activeTileCount} = queenTileMovement(i, j, boardDimension, strikeCounter)
         if(activeTileCount === 0) setGameOver(true)
         setActiveTiles(newTileStatus)
       } break

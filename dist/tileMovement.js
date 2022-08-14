@@ -197,4 +197,68 @@ export const rookTileMovement = (i, j, boardDimension, strikeCounter) => {
     newTileStatus,
     activeTileCount
   };
+}; // queen tile movement
+
+export const queenTileMovement = (i, j, boardDimension, strikeCounter) => {
+  let activeTileCount = 0;
+  let bound = boardDimension - 1; // last index of boardDimension
+
+  let newTileStatus = Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(false));
+
+  if (j > 0) {
+    // left
+    if (strikeCounter[i][0] < 3) activeTileCount++;
+    newTileStatus[i][0] = true;
+
+    if (i > 0) {
+      // top-left
+      let dist = Math.min(i, j);
+      if (strikeCounter[i - dist][j - dist] < 3) activeTileCount++;
+      newTileStatus[i - dist][j - dist] = true;
+    }
+  }
+
+  if (i > 0) {
+    // top
+    if (strikeCounter[0][j] < 3) activeTileCount++;
+    newTileStatus[0][j] = true;
+
+    if (j < bound) {
+      // top-right
+      let dist = Math.min(i, bound - j);
+      if (strikeCounter[i - dist][j + dist] < 3) activeTileCount++;
+      newTileStatus[i - dist][j + dist] = true;
+    }
+  }
+
+  if (j < bound) {
+    // right
+    if (strikeCounter[i][bound] < 3) activeTileCount++;
+    newTileStatus[i][bound] = true;
+
+    if (i < bound) {
+      // bottom-right
+      let dist = Math.min(bound - i, bound - j);
+      if (strikeCounter[i + dist][j + dist] < 3) activeTileCount++;
+      newTileStatus[i + dist][j + dist] = true;
+    }
+  }
+
+  if (i < bound) {
+    // bottom
+    if (strikeCounter[bound][j] < 3) activeTileCount++;
+    newTileStatus[bound][j] = true;
+
+    if (j > 0) {
+      // bottom-left
+      let dist = Math.min(bound - i, j);
+      if (strikeCounter[i + dist][j - dist] < 3) activeTileCount++;
+      newTileStatus[i + dist][j - dist] = true;
+    }
+  }
+
+  return {
+    newTileStatus,
+    activeTileCount
+  };
 };

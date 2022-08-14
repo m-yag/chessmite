@@ -30,7 +30,7 @@ const App = () => {
 ## To-do List
 
 * ~~Add numeric tiles.~~
-* Add chess tiles.
+* ~~Add chess tiles.~~
 * Add wildcard tile.
 * Refine styling.
 * Improve component useability/customizability.
