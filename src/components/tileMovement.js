@@ -189,3 +189,16 @@ export const queenTileMovement = (i, j, boardDimension, strikeCounter) => {
 
   return {newTileStatus, activeTileCount}
 }
+
+// wild card tile movement
+export const wcTileMovement = (i, j, boardDimension, strikeCounter) => {
+  let activeTileCount = 0
+
+  let newTileStatus = Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(true))
+  strikeCounter.forEach(row => {
+    row.forEach(counter => {if(counter < 3) activeTileCount++})
+  })
+
+  newTileStatus[i][j] = false
+  return {newTileStatus, activeTileCount}
+}
