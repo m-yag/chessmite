@@ -36,7 +36,7 @@ const App = () => {
 ## How to Play
 
 <p align="center">
-  <img width=400 src="../media/board.png?raw=true">
+  <img width=400 src="https://github.com/m-yag/chessmith/blob/media/board.png?raw=true">
 </p>
 
 ### Objective
@@ -53,7 +53,7 @@ Starting with a board of 36 grey squares, each square may be clicked a total of 
 * On the third, the square is 'complete' and there is nothing to click.
 
 <div align="center">
-  <img width=300 src="../media/tile-colors.png?raw=true">
+  <img width=300 src="https://github.com/m-yag/chessmith/blob/media/tile-colors.png?raw=true">
   <p>grey → yellow → green → complete</p>
 </div>
 
