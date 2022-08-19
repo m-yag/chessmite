@@ -42,6 +42,8 @@ const Chessmith = () => {
   ]
   /*****************/
 
+  console.log(strikeCounter);
+
   const incrementStrike = (i, j) => {
     const newStrikeCounter = [...strikeCounter];
     newStrikeCounter[i][j]++;
@@ -179,7 +181,8 @@ const Chessmith = () => {
   for (let i = 0, k = 0; i < boardDimension; i++) {
     for (let j = 0; j < boardDimension; j++, k++) {
       tileList[i][j] = /*#__PURE__*/React.createElement(Tile, {
-        key: k,
+        key: k // Date.now() ensures unique key number each time to force rerender Tile CSS.
+        ,
         type: curLayer[i][j],
         active: activeTiles[i][j],
         strikes: strikeCounter[i][j],

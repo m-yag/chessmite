@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; //import {CSSTransition} from 'react-transition-group'
 
 const Tile = ({
   type,
@@ -6,39 +6,57 @@ const Tile = ({
   strikes,
   onClick
 }) => {
-  const tempStyle = {
-    fontSize: "4.8vmin",
-    fontWeight: 700,
-    display: "block",
-    width: "14.6vmin",
-    height: "14.6vmin"
-  };
-
-  const getStrikeColor = strikes => {
+  const getTileClass = strikes => {
     if (strikes === 0) {
-      return 'zeroStrike';
+      return 'tileOne';
     } else if (strikes === 1) {
-      return 'oneStrike';
+      return 'tileTwo';
     } else if (strikes === 2) {
-      return 'twoStrike';
+      return 'tileThree';
     } else {
-      return 'threeStrike';
+      return '';
     }
   };
 
   if (strikes === 3) {
-    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
-      style: tempStyle,
+    return /*#__PURE__*/React.createElement("div", {
+      className: "tileContainer"
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "tileButton",
       disabled: true
-    }, "X"));
+    }));
   }
 
-  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
-    className: `${active ? 'clickable' : 'unclickable'} ${getStrikeColor(strikes)}`,
+  return /*#__PURE__*/React.createElement("div", {
+    className: "tileContainer"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "tileButton",
     onClick: onClick,
-    disabled: !active,
-    style: tempStyle
-  }, type));
+    disabled: !active
+  }, /*#__PURE__*/React.createElement("div", {
+    className: `${active ? 'clickable' : 'unclickable'} tile ${getTileClass(strikes)}`
+  }, type))); //OLD
+  //  return (
+  //    <div>
+  //      <button
+  //        className= {`${active ? 'clickable' : 'unclickable'} ${getStrikeColor(strikes)}`}
+  //        onClick={onClick}
+  //        disabled={!active}
+  //        style={tempStyle}
+  //      >
+  //        <CSSTransition
+  //          in={strikes === 0}
+  //          timeout={1000}
+  //          classNames="zeroStrike-transition"
+  //        >
+  //          <div className="tile">
+  //            {type}
+  //          </div>
+  //
+  //        </CSSTransition>
+  //      </button>
+  //    </div>
+  //  )
 };
 
 export default Tile;

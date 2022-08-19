@@ -1,29 +1,101 @@
+.tileContainer {
+  width: 14.6vmin;
+  height: 14.6vmin;
+  padding: 0;
+  margin: 0;
+}
+
+.tileContainer .tileButton {
+  padding: 0;
+  margin: 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: transparent;
+  transform-style: preserve-3d;
+  perspective: 5000px;
+}
+
+.tile {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+
+  font-size: 4.8vmin
+}
+
+.tileOne {
+  background: #959595;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.tileTwo {
+  background: #f5ce42;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.tileThree {
+  background: #47d147;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 .unclickable {
-  border-style: none;
-  color: #555;
+  filter: brightness(85%);
+  color: black;
+  position: absolute;
 }
 
 .clickable {
-  border-style: solid;
-  border-color: red;
-  border-width: 0.8vmin;
-  color: black;
+  animation-name: pulse;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  position: absolute;
 }
+
+/* keyframes by time? */
+@keyframes pulse {
+  50% {
+    box-shadow: inset 0 0 2vmin #ffd700;
+  }
+}
+
 
 .zeroStrike {
   background: #959595;
 }
 
-.oneStrike {
-  background: #f5ce42;
-}
 
-.twoStrike {
-  background: #47d147;
+.zeroStrike-transition-enter {
+  transform: rotateY(180deg);
 }
-
-.threeStrike {
-  background: white;
+.zeroStrike-transition-enter-active {
+  transition: all 1000ms ease;
+  transform: rotateY(0deg);
+}
+.zeroStrike-transition-enter-done {
+  transform: rotateY(0deg);
+}
+.zeroStrike-transition-exit {
+  transform: rotateY(0deg);
+}
+.zeroStrike-transition-exit-active {
+  transform: rotateY(180deg);
+  transition: all 1000ms ease;
+}
+.zeroStrike-transition-done {
+  transform: rotateY(0deg);
 }
 
 .grid {

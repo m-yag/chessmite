@@ -55,6 +55,7 @@ const Chessmith = () => {
     [1, 1, 2, 1, 2, 1]
   ]
   /*****************/
+  console.log(strikeCounter)
 
   const incrementStrike = (i, j) => {
     const newStrikeCounter = [...strikeCounter]
@@ -153,7 +154,7 @@ const Chessmith = () => {
   for(let i = 0, k = 0; i < boardDimension; i++) {
     for(let j = 0; j < boardDimension; j++, k++) {
       tileList[i][j] = <Tile
-        key={k}
+        key={k}  // Date.now() ensures unique key number each time to force rerender Tile CSS.
         type={curLayer[i][j]}
         active={activeTiles[i][j]}
         strikes={strikeCounter[i][j]}
