@@ -1,4 +1,5 @@
-import React from 'react'; //import {CSSTransition} from 'react-transition-group'
+import React from 'react';
+import { CSSTransition } from 'react-transition-group';
 
 const Tile = ({
   type,
@@ -6,18 +7,6 @@ const Tile = ({
   strikes,
   onClick
 }) => {
-  const getTileClass = strikes => {
-    if (strikes === 0) {
-      return 'tileOne';
-    } else if (strikes === 1) {
-      return 'tileTwo';
-    } else if (strikes === 2) {
-      return 'tileThree';
-    } else {
-      return '';
-    }
-  };
-
   if (strikes === 3) {
     return /*#__PURE__*/React.createElement("div", {
       className: "tileContainer"
@@ -33,30 +22,28 @@ const Tile = ({
     className: "tileButton",
     onClick: onClick,
     disabled: !active
+  }, /*#__PURE__*/React.createElement(CSSTransition, {
+    in: strikes === 2,
+    timeout: 1000,
+    classNames: "first-transition",
+    unmountOnExit: true
   }, /*#__PURE__*/React.createElement("div", {
-    className: `${active ? 'clickable' : 'unclickable'} tile ${getTileClass(strikes)}`
-  }, type))); //OLD
-  //  return (
-  //    <div>
-  //      <button
-  //        className= {`${active ? 'clickable' : 'unclickable'} ${getStrikeColor(strikes)}`}
-  //        onClick={onClick}
-  //        disabled={!active}
-  //        style={tempStyle}
-  //      >
-  //        <CSSTransition
-  //          in={strikes === 0}
-  //          timeout={1000}
-  //          classNames="zeroStrike-transition"
-  //        >
-  //          <div className="tile">
-  //            {type}
-  //          </div>
-  //
-  //        </CSSTransition>
-  //      </button>
-  //    </div>
-  //  )
+    className: `${active ? 'clickable' : 'unclickable'} tile tileThree`
+  }, type)), /*#__PURE__*/React.createElement(CSSTransition, {
+    in: strikes === 1,
+    timeout: 1000,
+    classNames: "first-transition",
+    unmountOnExit: true
+  }, /*#__PURE__*/React.createElement("div", {
+    className: `${active ? 'clickable' : 'unclickable'} tile tileTwo`
+  }, type)), /*#__PURE__*/React.createElement(CSSTransition, {
+    in: strikes === 0,
+    timeout: 1000,
+    classNames: "first-transition",
+    unmountOnExit: true
+  }, /*#__PURE__*/React.createElement("div", {
+    className: `${active ? 'clickable' : 'unclickable'} tile tileOne`
+  }, type))));
 };
 
 export default Tile;
