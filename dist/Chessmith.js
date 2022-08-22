@@ -26,23 +26,6 @@ const Chessmith = () => {
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
   /*********************************************/
-  //  Debug
-  //  console.log(layerOne)
-  //  console.log(layerTwo)
-  //  console.log(layerThree)
-
-  /*****************
-  const layerOne = [
-    [1, 2, 1, 1, 2, 1],
-    [1, 1, 1, 2, 1, 1],
-    [2, 1, 2, 1, 2, 2],
-    [2, 2, 1, 2, 1, 1],
-    [2, 1, 1, 1, 1, 2],
-    [1, 1, 2, 1, 2, 1]
-  ]
-  /*****************/
-
-  console.log(strikeCounter);
 
   const incrementStrike = (i, j) => {
     const newStrikeCounter = [...strikeCounter];
@@ -181,8 +164,7 @@ const Chessmith = () => {
   for (let i = 0, k = 0; i < boardDimension; i++) {
     for (let j = 0; j < boardDimension; j++, k++) {
       tileList[i][j] = /*#__PURE__*/React.createElement(Tile, {
-        key: k // Date.now() ensures unique key number each time to force rerender Tile CSS.
-        ,
+        key: k,
         type: curLayer[i][j],
         active: activeTiles[i][j],
         strikes: strikeCounter[i][j],

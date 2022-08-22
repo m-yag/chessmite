@@ -17,14 +17,14 @@ const Tile = ({
     disabled: complete ? true : !active
   }, /*#__PURE__*/React.createElement(CSSTransition, {
     in: strikes === 3,
-    timeout: 1000,
+    timeout: 500,
     classNames: "first-transition",
     unmountOnExit: true
   }, /*#__PURE__*/React.createElement("div", {
     className: "tile tileComplete"
   })), /*#__PURE__*/React.createElement(CSSTransition, {
     in: strikes === 2,
-    timeout: 1000,
+    timeout: 500,
     classNames: "first-transition",
     onExit: () => setComplete(true),
     unmountOnExit: true
@@ -32,14 +32,14 @@ const Tile = ({
     className: `${active ? 'clickable' : 'unclickable'} tile tileThree`
   }, type)), /*#__PURE__*/React.createElement(CSSTransition, {
     in: strikes === 1,
-    timeout: 1000,
+    timeout: 500,
     classNames: "first-transition",
     unmountOnExit: true
   }, /*#__PURE__*/React.createElement("div", {
     className: `${active ? 'clickable' : 'unclickable'} tile tileTwo`
   }, type)), /*#__PURE__*/React.createElement(CSSTransition, {
     in: strikes === 0,
-    timeout: 1000,
+    timeout: 500,
     classNames: "first-transition",
     unmountOnExit: true
   }, /*#__PURE__*/React.createElement("div", {
