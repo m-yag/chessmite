@@ -73,11 +73,11 @@ const Chessmith = () => {
             // if all tiles struck, activate wild card tile
             if(isAllStriked(1) && wildCard[0] === false) {
               setWildCard([true, false])
-              newLayer[r][c] = '⚜'
+              newLayer[r][c] = 'W'
             }
             if(isAllStriked(2) && wildCard[1] === false) {
               setWildCard([true, true])
-              newLayer[r][c] = '⚜'
+              newLayer[r][c] = 'W'
             }
           } else {
             newLayer[r][c] = curLayer[r][c]
@@ -97,31 +97,31 @@ const Chessmith = () => {
         setActiveTiles(newTileStatus)
       } break
 
-      case '♘': {     // knight
+      case 'N': {     // knight
         let {newTileStatus, activeTileCount} = knightTileMovement(i, j, boardDimension, strikeCounter)
         if(activeTileCount === 0) setGameOver(true)
         setActiveTiles(newTileStatus)
        } break
 
-      case '♗': {     // bishop
+      case 'B': {     // bishop
         let {newTileStatus, activeTileCount} = bishopTileMovement(i, j, boardDimension, strikeCounter)
         if(activeTileCount === 0) setGameOver(true)
         setActiveTiles(newTileStatus)
       } break
 
-      case '♖': {     // rook
+      case 'R': {     // rook
         let {newTileStatus, activeTileCount} = rookTileMovement(i, j, boardDimension, strikeCounter)
         if(activeTileCount === 0) setGameOver(true)
         setActiveTiles(newTileStatus)
       } break
 
-      case '♕': {     // queen
+      case 'Q': {     // queen
         let {newTileStatus, activeTileCount} = queenTileMovement(i, j, boardDimension, strikeCounter)
         if(activeTileCount === 0) setGameOver(true)
         setActiveTiles(newTileStatus)
       } break
 
-      case '⚜': {     // wildcard
+      case 'W': {     // wildcard
         let {newTileStatus, activeTileCount} = wcTileMovement(i, j, boardDimension, strikeCounter)
         if(activeTileCount === 0) setGameOver(true)
         setActiveTiles(newTileStatus)
@@ -164,8 +164,11 @@ const Chessmith = () => {
       <br/>
 
       <div className="center">
-          <p className="center">
-          {gameOver ? `Game Over! Score: ${score}` : `Score: ${score}`}
+          <p>
+            <strong>{gameOver ? 'Game Over!' : ''}</strong>
+          </p>
+          <p>
+            Score: {score}
           </p>
       </div>
 

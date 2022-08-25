@@ -1,6 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { fa1, fa2, fa3, fa4 } from '@fortawesome/free-solid-svg-icons';
+import { FaChessKnight, FaChessBishop, FaChessRook, FaChessQueen } from 'react-icons/fa';
+import { GiFleurDeLys } from 'react-icons/gi';
 
 const Tile = ({
   type,
@@ -9,6 +13,56 @@ const Tile = ({
   onClick
 }) => {
   const [complete, setComplete] = useState(false);
+
+  switch (type) {
+    case 1:
+      type = /*#__PURE__*/React.createElement(FontAwesomeIcon, {
+        icon: fa1
+      });
+      break;
+
+    case 2:
+      type = /*#__PURE__*/React.createElement(FontAwesomeIcon, {
+        icon: fa2
+      });
+      break;
+
+    case 3:
+      type = /*#__PURE__*/React.createElement(FontAwesomeIcon, {
+        icon: fa3
+      });
+      break;
+
+    case 4:
+      type = /*#__PURE__*/React.createElement(FontAwesomeIcon, {
+        icon: fa4
+      });
+      break;
+
+    case 'N':
+      type = /*#__PURE__*/React.createElement(FaChessKnight, null);
+      break;
+
+    case 'B':
+      type = /*#__PURE__*/React.createElement(FaChessBishop, null);
+      break;
+
+    case 'R':
+      type = /*#__PURE__*/React.createElement(FaChessRook, null);
+      break;
+
+    case 'Q':
+      type = /*#__PURE__*/React.createElement(FaChessQueen, null);
+      break;
+
+    case 'W':
+      type = /*#__PURE__*/React.createElement(GiFleurDeLys, null);
+      break;
+
+    default:
+      type = '?';
+  }
+
   return /*#__PURE__*/React.createElement("div", {
     className: "tileContainer"
   }, /*#__PURE__*/React.createElement("button", {

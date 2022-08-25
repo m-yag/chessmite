@@ -61,12 +61,12 @@ const Chessmith = () => {
 
             if (isAllStriked(1) && wildCard[0] === false) {
               setWildCard([true, false]);
-              newLayer[r][c] = '⚜';
+              newLayer[r][c] = 'W';
             }
 
             if (isAllStriked(2) && wildCard[1] === false) {
               setWildCard([true, true]);
-              newLayer[r][c] = '⚜';
+              newLayer[r][c] = 'W';
             }
           } else {
             newLayer[r][c] = curLayer[r][c];
@@ -93,7 +93,7 @@ const Chessmith = () => {
         }
         break;
 
-      case '♘':
+      case 'N':
         {
           // knight
           let {
@@ -105,7 +105,7 @@ const Chessmith = () => {
         }
         break;
 
-      case '♗':
+      case 'B':
         {
           // bishop
           let {
@@ -117,7 +117,7 @@ const Chessmith = () => {
         }
         break;
 
-      case '♖':
+      case 'R':
         {
           // rook
           let {
@@ -129,7 +129,7 @@ const Chessmith = () => {
         }
         break;
 
-      case '♕':
+      case 'Q':
         {
           // queen
           let {
@@ -141,7 +141,7 @@ const Chessmith = () => {
         }
         break;
 
-      case '⚜':
+      case 'W':
         {
           // wildcard
           let {
@@ -185,9 +185,7 @@ const Chessmith = () => {
     style: gridStyle
   }, tileList)), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", {
     className: "center"
-  }, /*#__PURE__*/React.createElement("p", {
-    className: "center"
-  }, gameOver ? `Game Over! Score: ${score}` : `Score: ${score}`)));
+  }, /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("strong", null, gameOver ? 'Game Over!' : '')), /*#__PURE__*/React.createElement("p", null, "Score: ", score)));
 };
 
 export default Chessmith;
