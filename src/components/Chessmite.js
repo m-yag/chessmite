@@ -15,7 +15,7 @@ import {
   wcTileMovement
 } from './tileMovement'
 
-const Chessmith = () => {
+const Chessmite = () => {
   // Square dimension of the board
   const boardDimension = 6
 
@@ -62,30 +62,34 @@ const Chessmith = () => {
     incrementStrike(i, j)
     setScore(score + 1)
 
-    setCurLayer(() => {
-      let newLayer = []
-      for(let r = 0; r < boardDimension; r++) {
-        newLayer[r] = []
-        for(let c = 0; c < boardDimension; c++) {
-          if(r === i && c === j) {
-            // tile progresses to next layer
-            newLayer[r][c] = strikeCounter[i][j] === 1 ? layerTwo[i][j] : layerThree[i][j]
-            // if all tiles struck, activate wild card tile
-            if(isAllStriked(1) && wildCard[0] === false) {
-              setWildCard([true, false])
-              newLayer[r][c] = 'W'
+    setTimeout( () => {   // 250ms delay to permit flip-animation to reach midpoint before state change.
+
+      setCurLayer(() => {
+        let newLayer = []
+        for(let r = 0; r < boardDimension; r++) {
+          newLayer[r] = []
+          for(let c = 0; c < boardDimension; c++) {
+            if(r === i && c === j) {
+              // tile progresses to next layer
+              newLayer[r][c] = strikeCounter[i][j] === 1 ? layerTwo[i][j] : layerThree[i][j]
+              // if all tiles struck, activate wild card tile
+              if(isAllStriked(1) && wildCard[0] === false) {
+                setWildCard([true, false])
+                newLayer[r][c] = 'W'
+              }
+              if(isAllStriked(2) && wildCard[1] === false) {
+                setWildCard([true, true])
+                newLayer[r][c] = 'W'
+              }
+            } else {
+              newLayer[r][c] = curLayer[r][c]
             }
-            if(isAllStriked(2) && wildCard[1] === false) {
-              setWildCard([true, true])
-              newLayer[r][c] = 'W'
-            }
-          } else {
-            newLayer[r][c] = curLayer[r][c]
           }
         }
-      }
-      return newLayer
-    })
+        return newLayer
+      })
+
+    }, 250) // end of timeout
 
     switch(type) {
       case 1:         // numeric
@@ -176,4 +180,4 @@ const Chessmith = () => {
   )
 }
 
-export default Chessmith
+export default Chessmite

@@ -6,7 +6,7 @@ import Tile from './Tile'; // javascript modules
 import { randPopulateLayer } from './tileProbability';
 import { numTileMovement, knightTileMovement, bishopTileMovement, rookTileMovement, queenTileMovement, wcTileMovement } from './tileMovement';
 
-const Chessmith = () => {
+const Chessmite = () => {
   // Square dimension of the board
   const boardDimension = 6; // States
 
@@ -48,34 +48,37 @@ const Chessmith = () => {
   const tileClick = (type, i, j) => {
     incrementStrike(i, j);
     setScore(score + 1);
-    setCurLayer(() => {
-      let newLayer = [];
+    setTimeout(() => {
+      // 250ms delay to permit flip-animation to reach midpoint before state change.
+      setCurLayer(() => {
+        let newLayer = [];
 
-      for (let r = 0; r < boardDimension; r++) {
-        newLayer[r] = [];
+        for (let r = 0; r < boardDimension; r++) {
+          newLayer[r] = [];
 
-        for (let c = 0; c < boardDimension; c++) {
-          if (r === i && c === j) {
-            // tile progresses to next layer
-            newLayer[r][c] = strikeCounter[i][j] === 1 ? layerTwo[i][j] : layerThree[i][j]; // if all tiles struck, activate wild card tile
+          for (let c = 0; c < boardDimension; c++) {
+            if (r === i && c === j) {
+              // tile progresses to next layer
+              newLayer[r][c] = strikeCounter[i][j] === 1 ? layerTwo[i][j] : layerThree[i][j]; // if all tiles struck, activate wild card tile
 
-            if (isAllStriked(1) && wildCard[0] === false) {
-              setWildCard([true, false]);
-              newLayer[r][c] = 'W';
+              if (isAllStriked(1) && wildCard[0] === false) {
+                setWildCard([true, false]);
+                newLayer[r][c] = 'W';
+              }
+
+              if (isAllStriked(2) && wildCard[1] === false) {
+                setWildCard([true, true]);
+                newLayer[r][c] = 'W';
+              }
+            } else {
+              newLayer[r][c] = curLayer[r][c];
             }
-
-            if (isAllStriked(2) && wildCard[1] === false) {
-              setWildCard([true, true]);
-              newLayer[r][c] = 'W';
-            }
-          } else {
-            newLayer[r][c] = curLayer[r][c];
           }
         }
-      }
 
-      return newLayer;
-    });
+        return newLayer;
+      });
+    }, 250); // end of timeout
 
     switch (type) {
       case 1: // numeric
@@ -188,4 +191,4 @@ const Chessmith = () => {
   }, /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("strong", null, gameOver ? 'Game Over!' : '')), /*#__PURE__*/React.createElement("p", null, "Score: ", score)));
 };
 
-export default Chessmith;
+export default Chessmite;
