@@ -6,7 +6,7 @@ import Tile from './Tile'; // javascript modules
 import { randPopulateLayer } from './tileProbability';
 import { numTileMovement, knightTileMovement, bishopTileMovement, rookTileMovement, queenTileMovement, wcTileMovement } from './tileMovement';
 
-const Chessmith = () => {
+const Chessmite = () => {
   // Square dimension of the board
   const boardDimension = 6; // States
 
@@ -191,4 +191,4 @@ const Chessmith = () => {
   }, /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("strong", null, gameOver ? 'Game Over!' : '')), /*#__PURE__*/React.createElement("p", null, "Score: ", score)));
 };
 
-export default Chessmith;
+export default Chessmite;

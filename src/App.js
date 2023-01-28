@@ -1,10 +1,10 @@
 //import Tile from './components/Tile'
-import Chessmith from './components/Chessmith'
+import Chessmite from './components/Chessmite'
 
 const App = () => {
   return (
     <div>
-      <Chessmith />
+      <Chessmite />
     </div>
   )
 }

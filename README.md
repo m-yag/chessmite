@@ -1,24 +1,24 @@
-# Chessmith
+# Chessmite
 
-Chessmith is a puzzle game (based on *Puzzle Pirates*' [blacksmithing](https://yppedia.puzzlepirates.com/Blacksmithing) puzzle) 
+Chessmite is a puzzle game (based on *Puzzle Pirates*' [blacksmithing](https://yppedia.puzzlepirates.com/Blacksmithing) puzzle) 
 packaged as a React component. It is a tile-based puzzle which involves chess-like mechanics.
 
 ## Installation
 
 ```bash
-npm install chessmith
+npm install Chessmite
 ```
 
 ## Usage
 
 ```javascript
 import React from 'react'
-import Chessmith from 'chessmith'
+import Chessmite from 'Chessmite'
 
 const App = () => {
   return (
     <div>
-      <Chessmith />
+      <Chessmite />
     </div>
   )
 }
@@ -35,7 +35,7 @@ const App = () => {
 ## How to Play
 
 <p align="center">
-  <img width=400 src="https://github.com/m-yag/chessmith/blob/media/board.png?raw=true">
+  <img width=400 src="https://github.com/m-yag/Chessmite/blob/media/board.png?raw=true">
 </p>
 
 ### Objective
@@ -52,7 +52,7 @@ Starting with a board of 36 grey squares, each square may be clicked a total of 
 * On the third, the square is 'complete' and there is nothing to click.
 
 <div align="center">
-  <img width=300 src="https://github.com/m-yag/chessmith/blob/media/tile-colors.png?raw=true">
+  <img width=300 src="https://github.com/m-yag/Chessmite/blob/media/tile-colors.png?raw=true">
   <p>grey → green → orange → complete</p>
 </div>
 
@@ -71,7 +71,7 @@ A number on a square signifies the distance between the original square and the 
 instance, allows the player to click any available square that is exactly 2 squares away horizontally, vertically, or 
 diagonally; the next click may not occur on a square in between.
 <div align="center">
-<img width="250" src="https://github.com/m-yag/chessmith/blob/media/two-example.png?raw=true">
+<img width="250" src="https://github.com/m-yag/Chessmite/blob/media/two-example.png?raw=true">
 </div>
 
 #### • Chess Pieces
@@ -81,7 +81,7 @@ horizontally. The difference here as opposed to chess is that, with the exceptio
 border and cannot stop on any one of the squares in between. The next click also may not fall on the same square as the previous 
 click. For example, after clicking a rook on the right edge of the board it is not permissible to click the same square again.
 <div align="center">
-<img width="250" src="https://github.com/m-yag/chessmith/blob/media/rook-example.png?raw=true">
+<img width="250" src="https://github.com/m-yag/Chessmite/blob/media/rook-example.png?raw=true">
 </div>
 
 
@@ -92,7 +92,7 @@ clicked. The wild card appears when all squares of a color have been flipped. Th
 flipped will contain the fleur-de-lis.
 
 <div align="center">
-  <img width=75 src="https://github.com/m-yag/chessmith/blob/media/wildcard.png?raw=true">
+  <img width=75 src="https://github.com/m-yag/Chessmite/blob/media/wildcard.png?raw=true">
   <p>wild card</p>
 </div>
 

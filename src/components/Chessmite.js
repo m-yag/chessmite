@@ -15,7 +15,7 @@ import {
   wcTileMovement
 } from './tileMovement'
 
-const Chessmith = () => {
+const Chessmite = () => {
   // Square dimension of the board
   const boardDimension = 6
 
@@ -180,4 +180,4 @@ const Chessmith = () => {
   )
 }
 
-export default Chessmith
+export default Chessmite
