@@ -67,29 +67,75 @@
   position: absolute;
 }
 
-.clickable {
-/*  animation-name: pulse;*/
-/*  animation-duration: 3s;*/
-/*  animation-delay: 1s;*/
-/*  animation-iteration-count: infinite;*/
+/*.clickable {
+  animation-name: pulse;
+  animation-duration: 3s;
+  animation-delay: 1s;
+  animation-iteration-count: infinite;
   position: absolute;
-  filter: brightness(107%);
-  box-shadow: inset 0 0 2vmin #d1e5f0;
+/*  filter: brightness(107%);*/
+/*  box-shadow: inset 0 0 2vmin #d1e5f0;
 }
 
-/*@keyframes pulse {*/
-/*  50% {*/
-/*    box-shadow: inset 0 0 2vmin #d1e5f0;*/
-/*    filter: brightness(108%);*/
-/*  }*/
-/*}*/
+@keyframes pulse {
+  50% {
+    filter: brightness(109%);
+    box-shadow: inset 0 0 2vmin #d1e5f0;
+  }
+}*/
 
-.tileTwoFilter {
+.clickableOne {
+  animation-name: pulse1;
+  animation-duration: 3s;
+  animation-delay: 1s;
+  animation-iteration-count: infinite;
+  position: absolute;
+}
+
+@keyframes pulse1 {
+  50% {
+    filter: brightness(113%);
+    box-shadow: inset 0 0 2vmin #d1e5f0;
+  }
+}
+
+.clickableTwo {
+  animation-name: pulse2;
+  animation-duration: 3s;
+  animation-delay: 1s;
+  animation-iteration-count: infinite;
+  position: absolute;
+}
+
+@keyframes pulse2 {
+  50% {
+    filter: brightness(125%);
+    box-shadow: inset 0 0 2vmin #d1e5f0;
+  }
+}
+
+.clickableThree {
+  animation-name: pulse3;
+  animation-duration: 3s;
+  animation-delay: 1s;
+  animation-iteration-count: infinite;
+  position: absolute;
+}
+
+@keyframes pulse3 {
+  50% {
+    filter: brightness(140%);
+    box-shadow: inset 0 0 2vmin #d1e5f0;
+  }
+}
+
+
+/*.tileTwoFilter {
   filter: brightness(125%);
 }
 .tileThreeFilter {
   filter: brightness(140%);
-}
+}*/
 
 .first-transition-enter {
   transform: rotateY(180deg);

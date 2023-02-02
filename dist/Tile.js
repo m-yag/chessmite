@@ -7,7 +7,8 @@ const Tile = ({
   type,
   active,
   strikes,
-  onClick
+  onClick,
+  score
 }) => {
   const [complete, setComplete] = useState(false);
   return /*#__PURE__*/React.createElement("div", {
@@ -30,7 +31,7 @@ const Tile = ({
     onExit: () => setComplete(true),
     unmountOnExit: true
   }, /*#__PURE__*/React.createElement("div", {
-    className: `${active ? 'clickable tileThreeFilter' : 'unclickable'} tile tileThree`
+    className: `${active ? 'clickableThree' : 'unclickable'} tile tileThree`
   }, /*#__PURE__*/React.createElement(Piece, {
     type: type
   }))), /*#__PURE__*/React.createElement(CSSTransition, {
@@ -39,7 +40,7 @@ const Tile = ({
     classNames: "first-transition",
     unmountOnExit: true
   }, /*#__PURE__*/React.createElement("div", {
-    className: `${active ? 'clickable tileTwoFilter' : 'unclickable'} tile tileTwo`
+    className: `${active ? 'clickableTwo' : 'unclickable'} tile tileTwo`
   }, /*#__PURE__*/React.createElement(Piece, {
     type: type
   }))), /*#__PURE__*/React.createElement(CSSTransition, {
@@ -48,7 +49,7 @@ const Tile = ({
     classNames: "first-transition",
     unmountOnExit: true
   }, /*#__PURE__*/React.createElement("div", {
-    className: `${active ? 'clickable' : 'unclickable'} tile tileOne`
+    className: `${score === 0 ? '' : active ? 'clickableOne' : 'unclickable'} tile tileOne`
   }, /*#__PURE__*/React.createElement(Piece, {
     type: type
   })))));
