@@ -3,7 +3,7 @@ import {useState} from 'react'
 import {CSSTransition} from 'react-transition-group'
 import Piece from './Piece'
 
-const Tile = ({type, active, strikes, onClick}) => {
+const Tile = ({type, active, strikes, onClick, score}) => {
 
   const [complete, setComplete] = useState(false)
 
@@ -17,19 +17,19 @@ const Tile = ({type, active, strikes, onClick}) => {
         </CSSTransition>
 
         <CSSTransition in={strikes === 2} timeout={500} classNames="first-transition" onExit={() => setComplete(true)} unmountOnExit>
-          <div className={`${active ? 'clickable tileThreeFilter' : 'unclickable'} tile tileThree`}>
+          <div className={`${active ? 'clickableThree' : 'unclickable'} tile tileThree`}>
             <Piece type={type}/>
           </div>
         </CSSTransition>
 
         <CSSTransition in={strikes === 1} timeout={500} classNames="first-transition" unmountOnExit>
-          <div className={`${active ? 'clickable tileTwoFilter' : 'unclickable'} tile tileTwo`}>
+          <div className={`${active ? 'clickableTwo' : 'unclickable'} tile tileTwo`}>
             <Piece type={type}/>
           </div>
         </CSSTransition>
 
         <CSSTransition in={strikes === 0} timeout={500} classNames="first-transition" unmountOnExit>
-          <div className={`${active ? 'clickable' : 'unclickable'} tile tileOne`}>
+          <div className={`${ score === 0 ? '' : active ? 'clickableOne' : 'unclickable'} tile tileOne`}>
             <Piece type={type}/>
           </div>
         </CSSTransition>

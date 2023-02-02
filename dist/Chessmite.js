@@ -7,7 +7,12 @@ import { randPopulateLayer } from './tileProbability';
 import { numTileMovement, knightTileMovement, bishopTileMovement, rookTileMovement, queenTileMovement, wcTileMovement } from './tileMovement';
 
 const Chessmite = () => {
-  // Square dimension of the board
+  // synchronize all pulse animation
+  document.getAnimations().forEach(animation => {
+    let name = animation.animationName;
+    if (name === 'pulse1' || name === 'pulse2' || name === 'pulse3') animation.startTime = 0;
+  }); // Square dimension of the board
+
   const boardDimension = 6; // States
 
   /*********************************************/
@@ -92,6 +97,7 @@ const Chessmite = () => {
             activeTileCount
           } = numTileMovement(i, j, type, boardDimension, strikeCounter);
           if (activeTileCount === 0) setGameOver(true);
+          setActiveTiles(Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(true)));
           setActiveTiles(newTileStatus);
         }
         break;
@@ -104,6 +110,7 @@ const Chessmite = () => {
             activeTileCount
           } = knightTileMovement(i, j, boardDimension, strikeCounter);
           if (activeTileCount === 0) setGameOver(true);
+          setActiveTiles(Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(true)));
           setActiveTiles(newTileStatus);
         }
         break;
@@ -116,6 +123,7 @@ const Chessmite = () => {
             activeTileCount
           } = bishopTileMovement(i, j, boardDimension, strikeCounter);
           if (activeTileCount === 0) setGameOver(true);
+          setActiveTiles(Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(true)));
           setActiveTiles(newTileStatus);
         }
         break;
@@ -128,6 +136,7 @@ const Chessmite = () => {
             activeTileCount
           } = rookTileMovement(i, j, boardDimension, strikeCounter);
           if (activeTileCount === 0) setGameOver(true);
+          setActiveTiles(Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(true)));
           setActiveTiles(newTileStatus);
         }
         break;
@@ -140,6 +149,7 @@ const Chessmite = () => {
             activeTileCount
           } = queenTileMovement(i, j, boardDimension, strikeCounter);
           if (activeTileCount === 0) setGameOver(true);
+          setActiveTiles(Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(true)));
           setActiveTiles(newTileStatus);
         }
         break;
@@ -152,6 +162,7 @@ const Chessmite = () => {
             activeTileCount
           } = wcTileMovement(i, j, boardDimension, strikeCounter);
           if (activeTileCount === 0) setGameOver(true);
+          setActiveTiles(Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(true)));
           setActiveTiles(newTileStatus);
         }
         break;
@@ -171,7 +182,8 @@ const Chessmite = () => {
         type: curLayer[i][j],
         active: activeTiles[i][j],
         strikes: strikeCounter[i][j],
-        onClick: () => tileClick(curLayer[i][j], i, j)
+        onClick: () => tileClick(curLayer[i][j], i, j),
+        score: score
       });
     }
   }

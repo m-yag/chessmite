@@ -16,6 +16,13 @@ import {
 } from './tileMovement'
 
 const Chessmite = () => {
+
+  // synchronize all pulse animation
+  document.getAnimations().forEach((animation) => {
+    let name = animation.animationName
+    if(name === 'pulse1' || name === 'pulse2' || name === 'pulse3') animation.startTime = 0
+  })
+
   // Square dimension of the board
   const boardDimension = 6
 
@@ -98,36 +105,42 @@ const Chessmite = () => {
       case 4: {
         let {newTileStatus, activeTileCount} = numTileMovement(i, j, type, boardDimension, strikeCounter)
         if(activeTileCount === 0) setGameOver(true)
+        setActiveTiles( Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(true)))
         setActiveTiles(newTileStatus)
       } break
 
       case 'N': {     // knight
         let {newTileStatus, activeTileCount} = knightTileMovement(i, j, boardDimension, strikeCounter)
         if(activeTileCount === 0) setGameOver(true)
+        setActiveTiles( Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(true)))
         setActiveTiles(newTileStatus)
        } break
 
       case 'B': {     // bishop
         let {newTileStatus, activeTileCount} = bishopTileMovement(i, j, boardDimension, strikeCounter)
         if(activeTileCount === 0) setGameOver(true)
+        setActiveTiles( Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(true)))
         setActiveTiles(newTileStatus)
       } break
 
       case 'R': {     // rook
         let {newTileStatus, activeTileCount} = rookTileMovement(i, j, boardDimension, strikeCounter)
         if(activeTileCount === 0) setGameOver(true)
+        setActiveTiles( Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(true)))
         setActiveTiles(newTileStatus)
       } break
 
       case 'Q': {     // queen
         let {newTileStatus, activeTileCount} = queenTileMovement(i, j, boardDimension, strikeCounter)
         if(activeTileCount === 0) setGameOver(true)
+        setActiveTiles( Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(true)))
         setActiveTiles(newTileStatus)
       } break
 
       case 'W': {     // wildcard
         let {newTileStatus, activeTileCount} = wcTileMovement(i, j, boardDimension, strikeCounter)
         if(activeTileCount === 0) setGameOver(true)
+        setActiveTiles( Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(true)))
         setActiveTiles(newTileStatus)
       } break
 
@@ -146,6 +159,7 @@ const Chessmite = () => {
         active={activeTiles[i][j]}
         strikes={strikeCounter[i][j]}
         onClick={() => tileClick(curLayer[i][j], i, j)}
+        score={score}
       />
     }
   }
