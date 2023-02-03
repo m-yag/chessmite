@@ -7,14 +7,14 @@ puzzle-solving experience.
 ## Installation
 
 ```bash
-npm install Chessmite
+npm install chessmite
 ```
 
 ## Usage
 
 ```javascript
 import React from 'react'
-import Chessmite from 'Chessmite'
+import Chessmite from 'chessmite'
 
 const App = () => {
   return (
@@ -30,7 +30,7 @@ const App = () => {
 * ~~Add numeric tiles.~~
 * ~~Add chess tiles.~~
 * ~~Add wildcard tile.~~
-* Refine styling.
+* ~~Refine styling.~~
 * Improve component useability/customizability.
 
 ## How to Play
