@@ -63,8 +63,9 @@
 }
 
 .unclickable {
-  filter: brightness(90%);
+  filter: brightness(83%);
   position: absolute;
+  color: #444;
 }
 
 /*.clickable {
