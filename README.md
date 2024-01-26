@@ -24,6 +24,13 @@ const App = () => {
 }
 ```
 
+### Props
+
+For displaying score (and 'Game Over' message):
+```javascript
+<Chessmite displayScore={true} />
+```
+
 ## To-do List
 
 * ~~Add numeric tiles.~~

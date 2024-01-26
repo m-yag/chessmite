@@ -15,7 +15,7 @@ import {
   wcTileMovement
 } from './tileMovement'
 
-const Chessmite = () => {
+const Chessmite = ({displayScore = false}) => {
 
   // synchronize all pulse animation
   document.getAnimations().forEach((animation) => {
@@ -179,16 +179,17 @@ const Chessmite = () => {
         </div>
       </div>
 
-      <br/>
 
-      <div className="center">
-          <p>
-            <strong>{gameOver ? 'Game Over!' : ''}</strong>
-          </p>
-          <p>
-            Score: {score}
-          </p>
-      </div>
+      {displayScore && (
+        <div className="center" style={{marginTop: '-0.3em', fontSize: '1.2em'}}>
+            <p>
+              <strong>{gameOver ? 'Game Over!' : ''}</strong>
+            </p>
+            <p>
+              Score: {score}
+            </p>
+        </div>
+      )}
 
     </div>
   )
