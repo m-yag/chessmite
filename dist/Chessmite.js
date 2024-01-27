@@ -6,7 +6,9 @@ import Tile from './Tile'; // javascript modules
 import { randPopulateLayer } from './tileProbability';
 import { numTileMovement, knightTileMovement, bishopTileMovement, rookTileMovement, queenTileMovement, wcTileMovement } from './tileMovement';
 
-const Chessmite = () => {
+const Chessmite = ({
+  displayScore = false
+}) => {
   // synchronize all pulse animation
   document.getAnimations().forEach(animation => {
     let name = animation.animationName;
@@ -198,8 +200,12 @@ const Chessmite = () => {
   }, /*#__PURE__*/React.createElement("div", {
     className: "grid",
     style: gridStyle
-  }, tileList)), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", {
-    className: "center"
+  }, tileList)), displayScore && /*#__PURE__*/React.createElement("div", {
+    className: "center",
+    style: {
+      marginTop: '-0.3em',
+      fontSize: '1.2em'
+    }
   }, /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("strong", null, gameOver ? 'Game Over!' : '')), /*#__PURE__*/React.createElement("p", null, "Score: ", score)));
 };
 
