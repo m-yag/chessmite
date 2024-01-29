@@ -27,18 +27,21 @@ const App = () => {
 
 ### Props
 
-For displaying score (and 'Game Over' message):
+##### displayScore - boolean
+
+Displays the score (and a 'Game Over' message):
 ```javascript
 <Chessmite displayScore={true} />
 ```
 
-## To-do List
 
-* ~~Add numeric tiles.~~
-* ~~Add chess tiles.~~
-* ~~Add wildcard tile.~~
-* ~~Refine styling.~~
-* Improve component useability/customizability.
+##### tileOne - string
+##### tileTwo - string
+##### tileThree - string
+Overrides default colour of specified tile:
+```javascript
+<Chessmite tileOne='#CCCCFF' />
+```
 
 ## How to Play
 
