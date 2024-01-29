@@ -15,7 +15,7 @@ import {
   wcTileMovement
 } from './tileMovement'
 
-const Chessmite = ({displayScore = false}) => {
+const Chessmite = ({displayScore = false, tileOne = '', tileTwo = '', tileThree = ''}) => {
 
   // synchronize all pulse animation
   document.getAnimations().forEach((animation) => {
@@ -160,6 +160,10 @@ const Chessmite = ({displayScore = false}) => {
         strikes={strikeCounter[i][j]}
         onClick={() => tileClick(curLayer[i][j], i, j)}
         score={score}
+
+        tileOne={tileOne}
+        tileTwo={tileTwo}
+        tileThree={tileThree}
       />
     }
   }

@@ -7,7 +7,10 @@ import { randPopulateLayer } from './tileProbability';
 import { numTileMovement, knightTileMovement, bishopTileMovement, rookTileMovement, queenTileMovement, wcTileMovement } from './tileMovement';
 
 const Chessmite = ({
-  displayScore = false
+  displayScore = false,
+  tileOne = '',
+  tileTwo = '',
+  tileThree = ''
 }) => {
   // synchronize all pulse animation
   document.getAnimations().forEach(animation => {
@@ -185,7 +188,10 @@ const Chessmite = ({
         active: activeTiles[i][j],
         strikes: strikeCounter[i][j],
         onClick: () => tileClick(curLayer[i][j], i, j),
-        score: score
+        score: score,
+        tileOne: tileOne,
+        tileTwo: tileTwo,
+        tileThree: tileThree
       });
     }
   }
