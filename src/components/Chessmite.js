@@ -15,7 +15,19 @@ import {
   wcTileMovement
 } from './tileMovement'
 
-const Chessmite = ({displayScore = false, tileOne = '', tileTwo = '', tileThree = ''}) => {
+const Chessmite = ({
+    displayScore = false,
+    tileOne = '', tileTwo = '', tileThree = '',
+    customLayer1, customLayer2, customLayer3
+    }) => {
+
+  // custom layer verification
+  const isValidLayer = (layer) => {
+    if(!layer) return false
+    if(layer.length !== 6) return false
+    layer.forEach((row) => {if(row.length !== 6) return false})
+    return true
+  }
 
   // synchronize all pulse animation
   document.getAnimations().forEach((animation) => {
@@ -23,14 +35,14 @@ const Chessmite = ({displayScore = false, tileOne = '', tileTwo = '', tileThree 
     if(name === 'pulse1' || name === 'pulse2' || name === 'pulse3') animation.startTime = 0
   })
 
-  // Square dimension of the board
+  // square dimension of the board
   const boardDimension = 6
 
   // States
   /*********************************************/
-  const [layerOne] = useState(randPopulateLayer(boardDimension))
-  const [layerTwo] = useState(randPopulateLayer(boardDimension))
-  const [layerThree] = useState(randPopulateLayer(boardDimension))
+  const [layerOne] = useState(isValidLayer(customLayer1) ? customLayer1 : randPopulateLayer(boardDimension))
+  const [layerTwo] = useState(isValidLayer(customLayer2) ? customLayer2 : randPopulateLayer(boardDimension))
+  const [layerThree] = useState(isValidLayer(customLayer3) ? customLayer3 : randPopulateLayer(boardDimension))
 
   const [curLayer, setCurLayer] = useState(layerOne)
 
