@@ -27,7 +27,7 @@ const App = () => {
 
 ### Props
 
-##### displayScore - boolean
+#### <em>displayScore</em> - boolean
 
 Displays the score (and a 'Game Over' message):
 ```javascript
@@ -35,13 +35,33 @@ Displays the score (and a 'Game Over' message):
 ```
 
 
-##### tileOne - string
-##### tileTwo - string
-##### tileThree - string
+#### <em>tileOne</em> - string
+#### <em>tileTwo</em> - string
+#### <em>tileThree</em> - string
 Overrides default colour of specified tile:
 ```javascript
 <Chessmite tileOne='#CCCCFF' />
 ```
+
+#### <em>customLayer1</em> - object (array)
+#### <em>customLayer2</em> - object (array)
+#### <em>customLayer3</em> - object (array)
+Sets board layer to a custom arrangment:
+```javascript
+const myLayer = [
+  [1, 1, 1, 1, 1, 1],
+  [2, 2, 2, 2, 2, 2],
+  [3, 3, 3, 3, 3, 3],
+  [4, 4, 4, 4, 4, 4],
+  ['N','B','R','Q', 'W'],
+  [1, 1, 1, 1, 1, 1]
+]
+
+<Chessmite customLayer1={myLayer} />
+```
+A layer must be a 6x6 array. Valid number tiles include numbers **1-4**. Valid chess tiles include **'N'**, **'B'**, **'R'**, & **'Q'** (knight, bishop, rook, and queen, respectively). Lastly, the wildcard tile: **'W'**.
+
+Note: The game produces a wildcard tile whenever a layer is completed, regardless of customization.
 
 ## How to Play
 
