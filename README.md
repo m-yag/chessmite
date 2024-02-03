@@ -55,9 +55,11 @@ const myLayer = [
   [4, 4, 4, 4, 4, 4],
   ['N','B','R','Q', 'W'],
   [1, 1, 1, 1, 1, 1]
-]
+];
 
-<Chessmite customLayer1={myLayer} />
+return (
+  <Chessmite customLayer1={myLayer} />
+)
 ```
 A layer must be a 6x6 array. Valid number tiles include numbers **1-4**. Valid chess tiles include **'N'**, **'B'**, **'R'**, & **'Q'** (knight, bishop, rook, and queen, respectively). Lastly, the wildcard tile: **'W'**.
 
