@@ -1,6 +1,7 @@
 import React, { useState } from 'react'; // styles & react components
 
 import './main.css';
+import styles from './chessmite.module.css';
 import Tile from './Tile'; // javascript modules
 
 import { randPopulateLayer } from './tileProbability';
@@ -215,12 +216,12 @@ const Chessmite = ({
     gridTemplateRows: `repeat(${boardDimension}, 15vmin)`
   };
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-    className: "center"
+    className: styles.center
   }, /*#__PURE__*/React.createElement("div", {
-    className: "grid",
+    className: styles.grid,
     style: gridStyle
   }, tileList)), displayScore && /*#__PURE__*/React.createElement("div", {
-    className: "center",
+    className: styles.center,
     style: {
       marginTop: '-0.3em',
       fontSize: '1.2em'

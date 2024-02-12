@@ -159,6 +159,7 @@
   transform: rotateY(0deg);
 }
 
+/* moved to chessmite.module.css
 .grid {
   justify-items: center;
   justify-content: center;
@@ -169,4 +170,4 @@
   margin: auto;
   width: 50%;
 }
-
+*/

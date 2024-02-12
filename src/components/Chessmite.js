@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 
 // styles & react components
 import './main.css'
+import styles from './chessmite.module.css'
 import Tile from './Tile'
 
 // javascript modules
@@ -189,15 +190,15 @@ const Chessmite = ({
   return (
     <div>
 
-      <div className="center">
-        <div className="grid" style={gridStyle}>
+      <div className={styles.center}>
+        <div className={styles.grid} style={gridStyle}>
           {tileList}
         </div>
       </div>
 
 
       {displayScore && (
-        <div className="center" style={{marginTop: '-0.3em', fontSize: '1.2em'}}>
+        <div className={styles.center} style={{marginTop: '-0.3em', fontSize: '1.2em'}}>
             <p>
               <strong>{gameOver ? 'Game Over!' : ''}</strong>
             </p>
