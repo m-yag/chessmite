@@ -11,7 +11,8 @@ const Tile = ({
   score,
   tileOne,
   tileTwo,
-  tileThree
+  tileThree,
+  tileComplete
 }) => {
   const [complete, setComplete] = useState(false);
   return /*#__PURE__*/React.createElement("div", {
@@ -26,6 +27,9 @@ const Tile = ({
     classNames: "first-transition",
     unmountOnExit: true
   }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: `${tileComplete}`
+    },
     className: "tile tileComplete"
   })), /*#__PURE__*/React.createElement(CSSTransition, {
     in: strikes === 2,
