@@ -18,7 +18,7 @@ import {
 
 const Chessmite = ({
     displayScore = false,
-    tileOne = '', tileTwo = '', tileThree = '',
+    tileOne = '', tileTwo = '', tileThree = '', tileComplete = '',
     customLayer1, customLayer2, customLayer3
     }) => {
 
@@ -177,6 +177,7 @@ const Chessmite = ({
         tileOne={tileOne}
         tileTwo={tileTwo}
         tileThree={tileThree}
+        tileComplete={tileComplete}
       />
     }
   }
