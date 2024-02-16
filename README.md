@@ -38,6 +38,7 @@ Displays the score (and a 'Game Over' message):
 #### <em>tileOne</em> - string
 #### <em>tileTwo</em> - string
 #### <em>tileThree</em> - string
+#### <em>tileComplete</em> - string
 Overrides default colour of specified tile:
 ```javascript
 <Chessmite tileOne='#CCCCFF' />
@@ -74,7 +75,7 @@ Note: The game produces a wildcard tile whenever a layer is completed, regardles
 ### Objective
 
 The objective of the puzzle is to clear the board by clicking each square three times. When a square is clicked three times, it 
-is considered "complete" and may no longer be used. The puzzle is over when all squares have been 'completed' **or** when no 
+is considered "complete" and may no longer be used. The puzzle is over when all squares have been completed **or** when no 
 move is available.
 
 ### Gameplay
