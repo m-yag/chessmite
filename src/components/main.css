@@ -1,3 +1,7 @@
+.tileOne, .tileTwo, .tileThree, .tileComplete, .unclickable {
+  color-scheme: dark;
+}
+
 .tileContainer {
   width: 14.6vmin;
   height: 14.6vmin;
@@ -169,5 +173,33 @@
   text-align: center;
   margin: auto;
   width: 50%;
+}
+*/
+
+
+/* Dark mode specific styles */
+/*@media (prefers-color-scheme: dark) {
+  .tileOne {
+    background: #e6e6e6 !important;
+    color: #000;
+  }
+
+  .tileTwo {
+    background: #74c476;
+    color: #000;
+  }
+
+  .tileThree {
+    background: #fd8d3c;
+    color: #000;
+  }
+
+  .tileComplete {
+    background: #27272a;
+  }
+
+  .unclickable {
+    color: #444;
+  }
 }
 */
