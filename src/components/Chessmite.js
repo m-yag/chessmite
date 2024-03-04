@@ -18,6 +18,7 @@ import {
 
 const Chessmite = ({
     displayScore = false,
+    updateScore, updateGameOver,
     tileOne = '', tileTwo = '', tileThree = '', tileComplete = '',
     customLayer1, customLayer2, customLayer3
     }) => {
@@ -60,6 +61,16 @@ const Chessmite = ({
   const [score, setScore] = useState(0)
   /*********************************************/
 
+  const scoreHandler = () => {
+    setScore(score + 1)
+    if(updateScore) updateScore(score)
+  }
+
+  const gameOverHandler = () => {
+    setGameOver(true)
+    if(updateGameOver) updateGameOver(false)
+  }
+
   const incrementStrike = (i, j) => {
     const newStrikeCounter = [...strikeCounter]
     newStrikeCounter[i][j]++
@@ -80,7 +91,7 @@ const Chessmite = ({
 
   const tileClick = (type, i, j) => {
     incrementStrike(i, j)
-    setScore(score + 1)
+    scoreHandler()
 
     setTimeout( () => {   // 250ms delay to permit flip-animation to reach midpoint before state change.
 
@@ -117,42 +128,42 @@ const Chessmite = ({
       case 3:
       case 4: {
         let {newTileStatus, activeTileCount} = numTileMovement(i, j, type, boardDimension, strikeCounter)
-        if(activeTileCount === 0) setGameOver(true)
+        if(activeTileCount === 0) gameOverHandler()
         setActiveTiles( Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(true)))
         setActiveTiles(newTileStatus)
       } break
 
       case 'N': {     // knight
         let {newTileStatus, activeTileCount} = knightTileMovement(i, j, boardDimension, strikeCounter)
-        if(activeTileCount === 0) setGameOver(true)
+        if(activeTileCount === 0) gameOverHandler()
         setActiveTiles( Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(true)))
         setActiveTiles(newTileStatus)
        } break
 
       case 'B': {     // bishop
         let {newTileStatus, activeTileCount} = bishopTileMovement(i, j, boardDimension, strikeCounter)
-        if(activeTileCount === 0) setGameOver(true)
+        if(activeTileCount === 0) gameOverHandler()
         setActiveTiles( Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(true)))
         setActiveTiles(newTileStatus)
       } break
 
       case 'R': {     // rook
         let {newTileStatus, activeTileCount} = rookTileMovement(i, j, boardDimension, strikeCounter)
-        if(activeTileCount === 0) setGameOver(true)
+        if(activeTileCount === 0) gameOverHandler()
         setActiveTiles( Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(true)))
         setActiveTiles(newTileStatus)
       } break
 
       case 'Q': {     // queen
         let {newTileStatus, activeTileCount} = queenTileMovement(i, j, boardDimension, strikeCounter)
-        if(activeTileCount === 0) setGameOver(true)
+        if(activeTileCount === 0) gameOverHandler()
         setActiveTiles( Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(true)))
         setActiveTiles(newTileStatus)
       } break
 
       case 'W': {     // wildcard
         let {newTileStatus, activeTileCount} = wcTileMovement(i, j, boardDimension, strikeCounter)
-        if(activeTileCount === 0) setGameOver(true)
+        if(activeTileCount === 0) gameOverHandler()
         setActiveTiles( Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(true)))
         setActiveTiles(newTileStatus)
       } break

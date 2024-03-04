@@ -1,6 +1,7 @@
 import Chessmite from './components/Chessmite'
 
 const App = () => {
+
   return (
     <div>
       <Chessmite />
