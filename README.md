@@ -4,6 +4,12 @@ Chessmite is a tile-based puzzle game, featuring chess-like mechanics. It is ins
 classic. This game is packaged as a React component and designed to offer an engaging and strategic 
 puzzle-solving experience.
 
+## Table of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+- [How to Play](#how-to-play)
+- [License](#license)
+
 ## Installation
 
 ```bash
@@ -39,7 +45,7 @@ Displays the score (and a 'Game Over' message):
 #### <em>tileTwo</em> - string
 #### <em>tileThree</em> - string
 #### <em>tileComplete</em> - string
-Overrides default colour of specified tile:
+Overrides default colour of specified tile layer:
 ```javascript
 <Chessmite tileOne='#CCCCFF' />
 ```
@@ -65,6 +71,46 @@ return (
 A layer must be a 6x6 array. Valid number tiles include numbers **1-4**. Valid chess tiles include **'N'**, **'B'**, **'R'**, & **'Q'** (knight, bishop, rook, and queen, respectively). Lastly, the wildcard tile: **'W'**.
 
 Note: The game produces a wildcard tile whenever a layer is completed, regardless of customization.
+
+
+#### <em>updateScore</em> - object (function)
+Pass your own score handler:
+```javascript
+<Chessmite updateScore={myScoreHandler}/>
+```
+Note: This is largely intended to allow a custom display of the score. Any complex changes to the scoring system would likely require tinkering with the source code.
+
+#### <em>updateGameOver</em> - object (function)
+Pass your own 'game over' handler:
+```javascript
+<Chessmite updateGameOver={myGameOverHandler} />
+```
+
+#### <em>statePersist</em> - boolean
+Saves puzzle progress:
+```javascript
+<Chessmite statePersis={true} />
+```
+States will not reset upon closing or refreshing page (even if the cache is cleared). This is intended to be used in conjuction with <em>resetState</em>. Otherwise, clearing local storage is required.
+
+#### <em>resetState</em> - boolean
+Resets puzzle:
+```javascript
+const [reset, setReset] = useState(false)
+const [key, setKey] = useState(0)
+
+const handleReset = () => {
+  setReset(true)      // resets state
+  setKey(key + 1)     // re-renders puzzle (otherwise a refresh is required)
+}
+
+return (
+  <div>
+    <Chessmite key={key} statePersist={true} resetState={reset} />
+    <button onClick={handleReset}>Reset Game</button>
+  </div>
+)
+```
 
 ## How to Play
 

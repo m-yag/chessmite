@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 
 // styles & react components
 import './main.css'
@@ -19,9 +19,16 @@ import {
 const Chessmite = ({
     displayScore = false,
     updateScore, updateGameOver,
+    statePersist = false, resetState = false,
     tileOne = '', tileTwo = '', tileThree = '', tileComplete = '',
     customLayer1, customLayer2, customLayer3
     }) => {
+
+  // Helper to load or initialize state
+  const loadState = (key, defaultValue) => {
+    const saved = localStorage.getItem(key);
+    return saved ? JSON.parse(saved) : defaultValue;
+  };
 
   // custom layer verification
   const isValidLayer = (layer) => {
@@ -42,24 +49,102 @@ const Chessmite = ({
 
   // States
   /*********************************************/
-  const [layerOne] = useState(isValidLayer(customLayer1) ? customLayer1 : randPopulateLayer(boardDimension))
-  const [layerTwo] = useState(isValidLayer(customLayer2) ? customLayer2 : randPopulateLayer(boardDimension))
-  const [layerThree] = useState(isValidLayer(customLayer3) ? customLayer3 : randPopulateLayer(boardDimension))
 
-  const [curLayer, setCurLayer] = useState(layerOne)
-
-  const [activeTiles, setActiveTiles] = useState( () => {
-    return Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(true))
-  })
-  const [strikeCounter, setStrikeCounter] = useState( () => {
-    return Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(0))
+  const [layerOne, setLayerOne] = useState(() => {
+    if(statePersist) {
+      return isValidLayer(customLayer1) ? loadState('layerOne', customLayer1) : loadState('layerOne', randPopulateLayer(boardDimension))
+    } else {
+      return isValidLayer(customLayer1) ? customLayer1 : randPopulateLayer(boardDimension)
+    }
   })
 
-  const [wildCard, setWildCard] = useState([false, false])
+  const [layerTwo, setLayerTwo] = useState(() => {
+    if(statePersist) {
+      return isValidLayer(customLayer2) ? loadState('layerTwo', customLayer2) : loadState('layerTwo', randPopulateLayer(boardDimension))
+    } else {
+      return isValidLayer(customLayer2) ? customLayer2 : randPopulateLayer(boardDimension)
+    }
+  })
 
-  const [gameOver, setGameOver] = useState(false)
-  const [score, setScore] = useState(0)
+  const [layerThree, setLayerThree] = useState(() => {
+    if(statePersist) {
+      return isValidLayer(customLayer3) ? loadState('layerThree', customLayer3) : loadState('layerThree', randPopulateLayer(boardDimension))
+    } else {
+      return isValidLayer(customLayer3) ? customLayer3 : randPopulateLayer(boardDimension)
+    }
+  })
+
+  const [curLayer, setCurLayer] = useState(() => statePersist ? loadState('curLayer', layerOne) : layerOne)
+
+  const [activeTiles, setActiveTiles] = useState(() => {
+    if(statePersist) {
+      return loadState('activeTiles', Array(boardDimension).fill().map(() => Array(boardDimension).fill(true)))
+    } else {
+      return Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(true))
+    }
+  })
+
+  const [strikeCounter, setStrikeCounter] = useState(() => {
+    if(statePersist) {
+      return loadState('strikeCounter', Array(boardDimension).fill().map(() => Array(boardDimension).fill(0)))
+    } else {
+      return Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(0))
+    }
+  })
+
+  const [wildCard, setWildCard] = useState(() =>
+    statePersist ? loadState('wildCard', [false, false]) : [false, false]
+  )
+
+  const [gameOver, setGameOver] = useState(() =>
+    statePersist ? loadState('gameOver', false) : false
+  )
+
+  const [score, setScore] = useState(() => statePersist ? loadState('score', 0) : 0)
   /*********************************************/
+
+
+  // Update localStorage when states change
+  useEffect(() => {
+    localStorage.setItem('layerOne', JSON.stringify(layerOne));
+    localStorage.setItem('layerTwo', JSON.stringify(layerTwo));
+    localStorage.setItem('layerThree', JSON.stringify(layerThree));
+    localStorage.setItem('curLayer', JSON.stringify(curLayer));
+    localStorage.setItem('strikeCounter', JSON.stringify(strikeCounter));
+    localStorage.setItem('activeTiles', JSON.stringify(activeTiles));
+    localStorage.setItem('wildCard', JSON.stringify(wildCard));
+    localStorage.setItem('gameOver', JSON.stringify(gameOver));
+    localStorage.setItem('score', JSON.stringify(score));
+  }, [layerOne, layerTwo, layerThree, curLayer, strikeCounter, activeTiles, wildCard, gameOver, score]);
+
+  useEffect(() => {
+    const resetGame = () => {
+      // Clear specific localStorage items.
+      // This resets all states, but DOES NOT re-render the puzzle unless the page is refreshed.
+      localStorage.removeItem('layerOne');
+      localStorage.removeItem('layerTwo');
+      localStorage.removeItem('layerThree');
+      localStorage.removeItem('curLayer');
+      localStorage.removeItem('strikeCounter');
+      localStorage.removeItem('activeTiles');
+      localStorage.removeItem('wildCard');
+      localStorage.removeItem('gameOver');
+      localStorage.removeItem('score');
+      setLayerOne(layerOne)
+      setLayerTwo(layerTwo)
+      setLayerThree(layerThree)
+      setCurLayer(layerOne)
+      setStrikeCounter(Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(0)))
+      setActiveTiles(Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(true)))
+      setWildCard([false, false])
+      setGameOver(false)
+      setScore(0)
+    }
+
+    if (resetState) {
+      resetGame();
+    }
+  }, [resetState, layerOne, layerTwo, layerThree]);
 
   const scoreHandler = () => {
     setScore(score + 1)
