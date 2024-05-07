@@ -1,5 +1,5 @@
-import React from 'react';
-import { useState } from 'react';
+import React from 'react'; //import {useState} from 'react'
+
 import { CSSTransition } from 'react-transition-group';
 import Piece from './Piece';
 
@@ -9,17 +9,21 @@ const Tile = ({
   strikes,
   onClick,
   score,
+  complete,
+  setComplete,
   tileOne,
   tileTwo,
   tileThree,
   tileComplete
 }) => {
-  const [complete, setComplete] = useState(false);
   return /*#__PURE__*/React.createElement("div", {
     className: "tileContainer"
   }, /*#__PURE__*/React.createElement("button", {
     className: "tileButton",
-    onClick: onClick,
+    onClick: () => {
+      onClick();
+      if (strikes === 2) setComplete();
+    },
     disabled: complete ? true : !active
   }, /*#__PURE__*/React.createElement(CSSTransition, {
     in: strikes === 3,

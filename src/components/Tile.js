@@ -1,15 +1,16 @@
 import React from 'react'
-import {useState} from 'react'
+//import {useState} from 'react'
 import {CSSTransition} from 'react-transition-group'
 import Piece from './Piece'
 
-const Tile = ({type, active, strikes, onClick, score, tileOne, tileTwo, tileThree, tileComplete}) => {
-
-  const [complete, setComplete] = useState(false)
+const Tile = ({
+  type, active, strikes, onClick, score, complete, setComplete,
+  tileOne, tileTwo, tileThree, tileComplete
+  }) => {
 
   return (
     <div className="tileContainer">
-      <button className='tileButton' onClick={onClick} disabled={complete ? true : !active}>
+      <button className='tileButton' onClick={() => {onClick(); if(strikes === 2) setComplete()}} disabled={complete ? true : !active}>
 
         <CSSTransition in={strikes === 3} timeout={500} classNames="first-transition" unmountOnExit>
           <div style={{background: `${tileComplete}`}} className="tile tileComplete">

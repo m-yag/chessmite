@@ -46,6 +46,7 @@ const Chessmite = ({
 
   // square dimension of the board
   const boardDimension = 6
+  const totalTiles = boardDimension * boardDimension
 
   // States
   /*********************************************/
@@ -101,35 +102,46 @@ const Chessmite = ({
   )
 
   const [score, setScore] = useState(() => statePersist ? loadState('score', 0) : 0)
+
+  // Tile completion
+  const [completeStates, setCompleteStates] = useState(() => {
+    if(statePersist) {
+      return loadState('completeStates', Array(totalTiles).fill(false))
+    } else {
+      return Array(totalTiles).fill(false)
+    }
+  })
   /*********************************************/
 
 
   // Update localStorage when states change
   useEffect(() => {
-    localStorage.setItem('layerOne', JSON.stringify(layerOne));
-    localStorage.setItem('layerTwo', JSON.stringify(layerTwo));
-    localStorage.setItem('layerThree', JSON.stringify(layerThree));
-    localStorage.setItem('curLayer', JSON.stringify(curLayer));
-    localStorage.setItem('strikeCounter', JSON.stringify(strikeCounter));
-    localStorage.setItem('activeTiles', JSON.stringify(activeTiles));
-    localStorage.setItem('wildCard', JSON.stringify(wildCard));
-    localStorage.setItem('gameOver', JSON.stringify(gameOver));
-    localStorage.setItem('score', JSON.stringify(score));
-  }, [layerOne, layerTwo, layerThree, curLayer, strikeCounter, activeTiles, wildCard, gameOver, score]);
+    localStorage.setItem('layerOne', JSON.stringify(layerOne))
+    localStorage.setItem('layerTwo', JSON.stringify(layerTwo))
+    localStorage.setItem('layerThree', JSON.stringify(layerThree))
+    localStorage.setItem('curLayer', JSON.stringify(curLayer))
+    localStorage.setItem('strikeCounter', JSON.stringify(strikeCounter))
+    localStorage.setItem('activeTiles', JSON.stringify(activeTiles))
+    localStorage.setItem('wildCard', JSON.stringify(wildCard))
+    localStorage.setItem('gameOver', JSON.stringify(gameOver))
+    localStorage.setItem('score', JSON.stringify(score))
+    localStorage.setItem('completeStates', JSON.stringify(completeStates))
+  }, [layerOne, layerTwo, layerThree, curLayer, strikeCounter, activeTiles, wildCard, gameOver, score, completeStates]);
 
   useEffect(() => {
     const resetGame = () => {
       // Clear specific localStorage items.
       // This resets all states, but DOES NOT re-render the puzzle unless the page is refreshed.
-      localStorage.removeItem('layerOne');
-      localStorage.removeItem('layerTwo');
-      localStorage.removeItem('layerThree');
-      localStorage.removeItem('curLayer');
-      localStorage.removeItem('strikeCounter');
-      localStorage.removeItem('activeTiles');
-      localStorage.removeItem('wildCard');
-      localStorage.removeItem('gameOver');
-      localStorage.removeItem('score');
+      localStorage.removeItem('layerOne')
+      localStorage.removeItem('layerTwo')
+      localStorage.removeItem('layerThree')
+      localStorage.removeItem('curLayer')
+      localStorage.removeItem('strikeCounter')
+      localStorage.removeItem('activeTiles')
+      localStorage.removeItem('wildCard')
+      localStorage.removeItem('gameOver')
+      localStorage.removeItem('score')
+      localStorage.removeItem('completeStates')
       setLayerOne(layerOne)
       setLayerTwo(layerTwo)
       setLayerThree(layerThree)
@@ -139,12 +151,13 @@ const Chessmite = ({
       setWildCard([false, false])
       setGameOver(false)
       setScore(0)
+      setCompleteStates(Array(totalTiles).fill(false))
     }
 
     if (resetState) {
       resetGame();
     }
-  }, [resetState, layerOne, layerTwo, layerThree]);
+  }, [resetState, layerOne, layerTwo, layerThree, totalTiles]);
 
   const scoreHandler = () => {
     setScore(score + 1)
@@ -172,6 +185,13 @@ const Chessmite = ({
     })
     if(tally === max) return true
     return false
+  }
+
+  // Method to update a tile's complete state
+  const setTileComplete = (index, value) => {
+    const updatedStates = [...completeStates]
+    updatedStates[index] = value
+    setCompleteStates(updatedStates)
   }
 
   const tileClick = (type, i, j) => {
@@ -262,6 +282,10 @@ const Chessmite = ({
   const tileList = Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(null))
   for(let i = 0, k = 0; i < boardDimension; i++) {
     for(let j = 0; j < boardDimension; j++, k++) {
+
+      // calculate index for completeStates
+      const index = i * boardDimension + j
+
       tileList[i][j] = <Tile
         key={k}
         type={curLayer[i][j]}
@@ -269,6 +293,8 @@ const Chessmite = ({
         strikes={strikeCounter[i][j]}
         onClick={() => tileClick(curLayer[i][j], i, j)}
         score={score}
+        complete={completeStates[index]}
+        setComplete={() => setTileComplete(index, true)}
 
         tileOne={tileOne}
         tileTwo={tileTwo}
