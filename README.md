@@ -36,7 +36,7 @@ const App = () => {
 #### <em>displayScore</em> - boolean
 
 Displays the score (and a 'Game Over' message):
-```javascript
+```html
 <Chessmite displayScore={true} />
 ```
 
@@ -46,7 +46,7 @@ Displays the score (and a 'Game Over' message):
 #### <em>tileThree</em> - string
 #### <em>tileComplete</em> - string
 Overrides default colour of specified tile layer:
-```javascript
+```html
 <Chessmite tileOne='#CCCCFF' />
 ```
 
@@ -75,41 +75,46 @@ Note: The game produces a wildcard tile whenever a layer is completed, regardles
 
 #### <em>updateScore</em> - object (function)
 Pass your own score handler:
-```javascript
+```html
 <Chessmite updateScore={myScoreHandler}/>
 ```
 Note: This is largely intended to allow a custom display of the score. Any complex changes to the scoring system would likely require tinkering with the source code.
 
 #### <em>updateGameOver</em> - object (function)
 Pass your own 'game over' handler:
-```javascript
+```html
 <Chessmite updateGameOver={myGameOverHandler} />
 ```
 
-#### <em>statePersist</em> - boolean
+#### <em>persistMode</em> - boolean
 Saves puzzle progress:
-```javascript
-<Chessmite statePersis={true} />
+```html
+<Chessmite persistMode={true} />
 ```
 States will not reset upon closing or refreshing page (even if the cache is cleared). This is intended to be used in conjuction with <em>resetState</em>. Otherwise, clearing local storage is required.
 
-#### <em>resetState</em> - boolean
+#### <em>resetState</em> - boolean (state)
+#### <em>setResetState</em> - object (setter)
 Resets puzzle:
 ```javascript
 const [reset, setReset] = useState(false)
-const [key, setKey] = useState(0)
-
 const handleReset = () => {
-  setReset(true)      // resets state
-  setKey(key + 1)     // re-renders puzzle (otherwise a refresh is required)
+  setReset(true)      // triggers reset
 }
 
 return (
   <div>
-    <Chessmite key={key} statePersist={true} resetState={reset} />
+    <Chessmite persistMode={true} resetState={reset} setResetState={setReset} />
     <button onClick={handleReset}>Reset Game</button>
   </div>
 )
+```
+Note: For the component to correctly reset the puzzle, both the state and it's corresponding setter are required. In other words using <em>resetState</em> alone is not enough.
+
+#### <em>shuffleOnReset</em> - boolean
+Generates new random board on reset:
+```html
+<Chessmite persistMode={true} resetState={reset} setResetState={setReset} shuffleOnReset={true} />
 ```
 
 ## How to Play

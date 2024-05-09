@@ -11,8 +11,10 @@ const Chessmite = ({
   displayScore = false,
   updateScore,
   updateGameOver,
-  statePersist = false,
+  persistMode = false,
   resetState = false,
+  setResetState,
+  shuffleOnReset = false,
   tileOne = '',
   tileTwo = '',
   tileThree = '',
@@ -49,47 +51,47 @@ const Chessmite = ({
   /*********************************************/
 
   const [layerOne, setLayerOne] = useState(() => {
-    if (statePersist) {
+    if (persistMode) {
       return isValidLayer(customLayer1) ? loadState('layerOne', customLayer1) : loadState('layerOne', randPopulateLayer(boardDimension));
     } else {
       return isValidLayer(customLayer1) ? customLayer1 : randPopulateLayer(boardDimension);
     }
   });
   const [layerTwo, setLayerTwo] = useState(() => {
-    if (statePersist) {
+    if (persistMode) {
       return isValidLayer(customLayer2) ? loadState('layerTwo', customLayer2) : loadState('layerTwo', randPopulateLayer(boardDimension));
     } else {
       return isValidLayer(customLayer2) ? customLayer2 : randPopulateLayer(boardDimension);
     }
   });
   const [layerThree, setLayerThree] = useState(() => {
-    if (statePersist) {
+    if (persistMode) {
       return isValidLayer(customLayer3) ? loadState('layerThree', customLayer3) : loadState('layerThree', randPopulateLayer(boardDimension));
     } else {
       return isValidLayer(customLayer3) ? customLayer3 : randPopulateLayer(boardDimension);
     }
   });
-  const [curLayer, setCurLayer] = useState(() => statePersist ? loadState('curLayer', layerOne) : layerOne);
+  const [curLayer, setCurLayer] = useState(() => persistMode ? loadState('curLayer', layerOne) : layerOne);
   const [activeTiles, setActiveTiles] = useState(() => {
-    if (statePersist) {
+    if (persistMode) {
       return loadState('activeTiles', Array(boardDimension).fill().map(() => Array(boardDimension).fill(true)));
     } else {
       return Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(true));
     }
   });
   const [strikeCounter, setStrikeCounter] = useState(() => {
-    if (statePersist) {
+    if (persistMode) {
       return loadState('strikeCounter', Array(boardDimension).fill().map(() => Array(boardDimension).fill(0)));
     } else {
       return Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(0));
     }
   });
-  const [wildCard, setWildCard] = useState(() => statePersist ? loadState('wildCard', [false, false]) : [false, false]);
-  const [gameOver, setGameOver] = useState(() => statePersist ? loadState('gameOver', false) : false);
-  const [score, setScore] = useState(() => statePersist ? loadState('score', 0) : 0); // Tile completion
+  const [wildCard, setWildCard] = useState(() => persistMode ? loadState('wildCard', [false, false]) : [false, false]);
+  const [gameOver, setGameOver] = useState(() => persistMode ? loadState('gameOver', false) : false);
+  const [score, setScore] = useState(() => persistMode ? loadState('score', 0) : 0); // Tile completion
 
   const [completeStates, setCompleteStates] = useState(() => {
-    if (statePersist) {
+    if (persistMode) {
       return loadState('completeStates', Array(totalTiles).fill(false));
     } else {
       return Array(totalTiles).fill(false);
@@ -99,19 +101,21 @@ const Chessmite = ({
   // Update localStorage when states change
 
   useEffect(() => {
-    localStorage.setItem('layerOne', JSON.stringify(layerOne));
-    localStorage.setItem('layerTwo', JSON.stringify(layerTwo));
-    localStorage.setItem('layerThree', JSON.stringify(layerThree));
-    localStorage.setItem('curLayer', JSON.stringify(curLayer));
-    localStorage.setItem('strikeCounter', JSON.stringify(strikeCounter));
-    localStorage.setItem('activeTiles', JSON.stringify(activeTiles));
-    localStorage.setItem('wildCard', JSON.stringify(wildCard));
-    localStorage.setItem('gameOver', JSON.stringify(gameOver));
-    localStorage.setItem('score', JSON.stringify(score));
-    localStorage.setItem('completeStates', JSON.stringify(completeStates));
-  }, [layerOne, layerTwo, layerThree, curLayer, strikeCounter, activeTiles, wildCard, gameOver, score, completeStates]);
+    if (!resetState) {
+      localStorage.setItem('layerOne', JSON.stringify(layerOne));
+      localStorage.setItem('layerTwo', JSON.stringify(layerTwo));
+      localStorage.setItem('layerThree', JSON.stringify(layerThree));
+      localStorage.setItem('curLayer', JSON.stringify(curLayer));
+      localStorage.setItem('strikeCounter', JSON.stringify(strikeCounter));
+      localStorage.setItem('activeTiles', JSON.stringify(activeTiles));
+      localStorage.setItem('wildCard', JSON.stringify(wildCard));
+      localStorage.setItem('gameOver', JSON.stringify(gameOver));
+      localStorage.setItem('score', JSON.stringify(score));
+      localStorage.setItem('completeStates', JSON.stringify(completeStates));
+    }
+  }, [resetState, layerOne, layerTwo, layerThree, curLayer, strikeCounter, activeTiles, wildCard, gameOver, score, completeStates]);
   useEffect(() => {
-    const resetGame = () => {
+    const resetGame = shuffle => {
       // Clear specific localStorage items.
       // This resets all states, but DOES NOT re-render the puzzle unless the page is refreshed.
       localStorage.removeItem('layerOne');
@@ -124,9 +128,17 @@ const Chessmite = ({
       localStorage.removeItem('gameOver');
       localStorage.removeItem('score');
       localStorage.removeItem('completeStates');
-      setLayerOne(layerOne);
-      setLayerTwo(layerTwo);
-      setLayerThree(layerThree);
+
+      if (shuffle) {
+        setLayerOne(randPopulateLayer(boardDimension));
+        setLayerTwo(randPopulateLayer(boardDimension));
+        setLayerThree(randPopulateLayer(boardDimension));
+      } else {
+        setLayerOne(layerOne);
+        setLayerTwo(layerTwo);
+        setLayerThree(layerThree);
+      }
+
       setCurLayer(layerOne);
       setStrikeCounter(Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(0)));
       setActiveTiles(Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(true)));
@@ -137,9 +149,10 @@ const Chessmite = ({
     };
 
     if (resetState) {
-      resetGame();
+      resetGame(shuffleOnReset);
+      setResetState(false);
     }
-  }, [resetState, layerOne, layerTwo, layerThree, totalTiles]);
+  }, [resetState, setResetState, shuffleOnReset, layerOne, layerTwo, layerThree, totalTiles]);
 
   const scoreHandler = () => {
     setScore(score + 1);
