@@ -147,12 +147,16 @@ const Chessmite = ({
         setLayerOne(randPopulateLayer(boardDimension))
         setLayerTwo(randPopulateLayer(boardDimension))
         setLayerThree(randPopulateLayer(boardDimension))
+        setCurLayer(layerOne)
       } else {
-        setLayerOne(layerOne)
-        setLayerTwo(layerTwo)
-        setLayerThree(layerThree)
+        // Assigns customLayer first (in case a new custom layer was passed)
+        // If no new customLayer was passed then it should be the same as the old.
+        // If no customLayer was passed in the first place, then resets to original.
+        setLayerOne(isValidLayer(customLayer1) ? customLayer1 : layerOne)
+        setLayerTwo(isValidLayer(customLayer2) ? customLayer2 : layerTwo)
+        setLayerThree(isValidLayer(customLayer3) ? customLayer3 : layerThree)
+        setCurLayer(isValidLayer(customLayer1) ? customLayer1 : layerOne)
       }
-      setCurLayer(layerOne)
       setStrikeCounter(Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(0)))
       setActiveTiles(Array(boardDimension).fill(null).map(() => Array(boardDimension).fill(true)))
       setWildCard([false, false])
@@ -165,7 +169,7 @@ const Chessmite = ({
       resetGame(shuffleOnReset);
       setResetState(false)
     }
-  }, [resetState, setResetState, shuffleOnReset, layerOne, layerTwo, layerThree, totalTiles]);
+  }, [resetState, setResetState, shuffleOnReset, customLayer1, customLayer2, customLayer3, layerOne, layerTwo, layerThree, totalTiles]);
 
   const scoreHandler = () => {
     setScore(score + 1)

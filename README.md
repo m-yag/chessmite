@@ -1,7 +1,7 @@
 # Chessmite
 
-Chessmite is a tile-based puzzle game, featuring chess-like mechanics. It is inspired by a childhood puzzle 
-classic. This game is packaged as a React component and designed to offer an engaging and strategic 
+Chessmite is a tile-based puzzle game, featuring chess-like mechanics. It is inspired by a childhood puzzle
+classic. This game is packaged as a React component and designed to offer an engaging and strategic
 puzzle-solving experience.
 
 ## Table of Contents
