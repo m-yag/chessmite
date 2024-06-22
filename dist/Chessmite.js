@@ -101,7 +101,7 @@ const Chessmite = ({
   // Update localStorage when states change
 
   useEffect(() => {
-    if (!resetState) {
+    if (persistMode && !resetState) {
       localStorage.setItem('layerOne', JSON.stringify(layerOne));
       localStorage.setItem('layerTwo', JSON.stringify(layerTwo));
       localStorage.setItem('layerThree', JSON.stringify(layerThree));
