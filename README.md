@@ -4,6 +4,8 @@ Chessmite is a tile-based puzzle game, featuring chess-like mechanics. It is ins
 classic. This game is packaged as a React component and designed to offer an engaging and strategic
 puzzle-solving experience.
 
+The game can be found and played on the [official website](https://chessmite.com).
+
 ## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
@@ -123,59 +125,51 @@ Generates new random board on reset:
   <img width=400 src="https://github.com/m-yag/Chessmite/blob/media/board.png?raw=true">
 </p>
 
-### Objective
+#### Objective
 
-The objective of the puzzle is to clear the board by clicking each square three times. When a square is clicked three times, it 
-is considered "complete" and may no longer be used. The puzzle is over when all squares have been completed **or** when no 
-move is available.
+The objective of the puzzle is to clear the board by clicking each square three times. When a square is clicked three times, it becomes "complete" and can no longer be used. The puzzle ends when all squares are completed **or** when no valid moves are available.
 
-### Gameplay
+#### Gameplay
 
-Starting with a board of 36 grey squares, each square may be clicked a total of three times over the course of the game:
-* On the first click, the square turns from grey to green.
-* On the second, from green to orange.
-* On the third, the square is 'complete' and there is nothing to click.
+You start with a board of 36 grey squares. Each square can be clicked up to three times:
+* **First click:** The square turns from grey to green.
+* **Second click:** The square turns from green to orange.
+* **Third click:** The square is 'complete' and becomes unclickable.
 
 <div align="center">
   <img width=300 src="https://github.com/m-yag/Chessmite/blob/media/tile-colors.png?raw=true">
   <p>grey → green → orange → complete</p>
 </div>
 
-The initial move may be made by clicking on any square. Afterward, the only squares that may be clicked are determined by the 
-symbol on the square last clicked. Each time a square is clicked, it is replaced by a new square with a random symbol.
+The initial move can be made by clicking any square. Subsequent moves are determined by the symbol on the last clicked square. Each time a square is clicked, it is replaced by a new square with a random symbol.
 
-### Pieces
+#### Pieces
 
-There are two sets of pieces: numeric (1, 2, 3, 4) and chess pieces (Knight, Bishop, Rook, and Queen). They indicate what squares 
-may be clicked next. If a destination square is already 'completed' or is beyond the puzzle's border, then a move to that 
-particular destination cannot be made. Destination squares, if available, are highlighted.
+There are two sets of pieces: numeric (1, 2, 3, 4) and chess pieces (Knight, Bishop, Rook, and Queen). These symbols indicate which squares may be clicked next. If a destination square is already 'completed' or beyond the puzzle's border, that move is invalid. Destination squares, if available, are highlighted.
 
-#### •  Numeric Pieces
+##### Numeric Pieces
 
-A number on a square signifies the distance between the original square and the destination square. Clicking on a 2, for 
-instance, allows the player to click any available square that is exactly 2 squares away horizontally, vertically, or 
-diagonally; the next click may not occur on a square in between.
+A number on a square indicates the distance to the next clickable square. For example, clicking a 2 allows the player to click any available square exactly 2 squares away horizontally, vertically, or diagonally.
 <div align="center">
 <img width="250" src="https://github.com/m-yag/Chessmite/blob/media/two-example.png?raw=true">
 </div>
 
-#### • Chess Pieces
-The chess pieces have the same movements as they do in chess: The Bishop moves diagonally; the Rook moves vertically or 
-horizontally; the Knight moves in an "L" shape (2 x 1 squares or 1 x 2 squares); and the Queen moves diagonally, vertically, or 
-horizontally. The difference here as opposed to chess is that, with the exception of the Knight, the pieces always move to the 
-border and cannot stop on any one of the squares in between. The next click also may not fall on the same square as the previous 
-click. For example, after clicking a rook on the right edge of the board it is not permissible to click the same square again.
+##### Chess Pieces
+
+Chess pieces move as they do in chess:
+* **Bishop:** Moves diagonally to the border.
+* **Rook:** Moves vertically or horizontally to the border.
+* **Knight:** Moves in an "L" shape (2 x 1 squares or 1 x 2 squares).
+* **Queen:** Moves diagonally, vertically, or horizontally to the border.
+
+Except for the Knight, pieces always move to the board's edge and cannot stop midway. The next click cannot be on the same square as the previous one.
 <div align="center">
 <img width="250" src="https://github.com/m-yag/Chessmite/blob/media/rook-example.png?raw=true">
 </div>
 
+##### Wild Card
 
-#### • Wild Card
-
-The fleur-de-lis (⚜) is a wild card tile which allows any square not yet completed, except the same square itself, to be 
-clicked. The wild card appears when all squares of a color have been flipped. The last square of a particular color to be 
-flipped will contain the fleur-de-lis.
-
+The fleur-de-lis (⚜) is a wild card tile allowing any incomplete square (except itself) to be clicked. The wild card appears when all squares of a color have been flipped. The last square of a particular color to be flipped will reveal the fleur-de-lis.
 <div align="center">
   <img width=75 src="https://github.com/m-yag/Chessmite/blob/media/wildcard.png?raw=true">
   <p>wild card</p>
