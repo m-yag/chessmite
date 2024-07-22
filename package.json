@@ -1,6 +1,6 @@
 {
   "name": "chessmite",
-  "version": "1.15.3",
+  "version": "1.15.4",
   "main": "dist/Chessmite.js",
   "private": false,
   "babel": {
