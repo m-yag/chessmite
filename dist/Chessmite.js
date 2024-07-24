@@ -23,9 +23,7 @@ const Chessmite = ({
   customLayer2,
   customLayer3
 }) => {
-  const [loading, setLoading] = useState(true); // Add loading state
   // Helper to load or initialize state
-
   const loadState = (key, defaultValue) => {
     const saved = localStorage.getItem(key);
     return saved ? JSON.parse(saved) : defaultValue;
@@ -100,12 +98,7 @@ const Chessmite = ({
     }
   });
   /*********************************************/
-
-  useEffect(() => {
-    // Ensure all necessary states are set before allowing interactions
-    setCompleteStates(Array(totalTiles).fill(false));
-    setLoading(false); // Set loading to false once initialization is done
-  }, [setCompleteStates, totalTiles]); // Update localStorage when states change
+  // Update localStorage when states change
 
   useEffect(() => {
     if (persistMode && !resetState) {
@@ -120,7 +113,7 @@ const Chessmite = ({
       localStorage.setItem('score', JSON.stringify(score));
       localStorage.setItem('completeStates', JSON.stringify(completeStates));
     }
-  }, [resetState, layerOne, layerTwo, layerThree, curLayer, strikeCounter, activeTiles, wildCard, gameOver, score, completeStates, persistMode]);
+  }, [resetState, layerOne, layerTwo, layerThree, curLayer, strikeCounter, activeTiles, wildCard, gameOver, score, completeStates]);
   useEffect(() => {
     const resetGame = shuffle => {
       // Clear specific localStorage items.
@@ -158,6 +151,7 @@ const Chessmite = ({
       setWildCard([false, false]);
       setGameOver(false);
       setScore(0);
+      setCompleteStates(Array(totalTiles).fill(false));
     };
 
     if (resetState) {
@@ -335,8 +329,7 @@ const Chessmite = ({
         type: curLayer[i][j],
         active: activeTiles[i][j],
         strikes: strikeCounter[i][j],
-        onClick: () => !loading && tileClick(curLayer[i][j], i, j) // Ensure onClick only works when loading is false
-        ,
+        onClick: () => tileClick(curLayer[i][j], i, j),
         score: score,
         complete: completeStates[index],
         setComplete: () => setTileComplete(index, true),
@@ -353,14 +346,7 @@ const Chessmite = ({
     gridTemplateColumns: `repeat(${boardDimension}, 15vmin)`,
     gridTemplateRows: `repeat(${boardDimension}, 15vmin)`
   };
-  return /*#__PURE__*/React.createElement("div", null, loading ? /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '100vh'
-    }
-  }, /*#__PURE__*/React.createElement("p", null, "Loading...")) : /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     className: styles.center
   }, /*#__PURE__*/React.createElement("div", {
     className: styles.grid,
