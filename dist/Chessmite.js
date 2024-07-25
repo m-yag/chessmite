@@ -98,7 +98,12 @@ const Chessmite = ({
     }
   });
   /*********************************************/
-  // Update localStorage when states change
+
+  useEffect(() => {
+    if (persistMode) {
+      if (score < 2) localStorage.setItem('completeStates', JSON.stringify(Array(totalTiles).fill(false)));
+    }
+  }, [persistMode, score, totalTiles]); // Update localStorage when states change
 
   useEffect(() => {
     if (persistMode && !resetState) {
@@ -113,7 +118,7 @@ const Chessmite = ({
       localStorage.setItem('score', JSON.stringify(score));
       localStorage.setItem('completeStates', JSON.stringify(completeStates));
     }
-  }, [resetState, layerOne, layerTwo, layerThree, curLayer, strikeCounter, activeTiles, wildCard, gameOver, score, completeStates]);
+  }, [resetState, layerOne, layerTwo, layerThree, curLayer, strikeCounter, activeTiles, wildCard, gameOver, score, completeStates, persistMode]);
   useEffect(() => {
     const resetGame = shuffle => {
       // reset completeStates before localStorage items are cleared.
