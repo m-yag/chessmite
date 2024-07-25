@@ -116,8 +116,10 @@ const Chessmite = ({
   }, [resetState, layerOne, layerTwo, layerThree, curLayer, strikeCounter, activeTiles, wildCard, gameOver, score, completeStates]);
   useEffect(() => {
     const resetGame = shuffle => {
-      // Clear specific localStorage items.
+      // reset completeStates before localStorage items are cleared.
+      setCompleteStates(Array(totalTiles).fill(false)); // Clear specific localStorage items.
       // This resets all states, but DOES NOT re-render the puzzle unless the page is refreshed.
+
       localStorage.removeItem('layerOne');
       localStorage.removeItem('layerTwo');
       localStorage.removeItem('layerThree');
@@ -127,9 +129,7 @@ const Chessmite = ({
       localStorage.removeItem('wildCard');
       localStorage.removeItem('gameOver');
       localStorage.removeItem('score');
-      localStorage.removeItem('completeStates'); // Directly reset completeStates to all false values
-
-      setCompleteStates(Array(totalTiles).fill(false));
+      localStorage.removeItem('completeStates');
 
       if (shuffle) {
         setLayerOne(randPopulateLayer(boardDimension));

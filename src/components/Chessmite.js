@@ -131,6 +131,9 @@ const Chessmite = ({
 
   useEffect(() => {
     const resetGame = (shuffle) => {
+      // reset completeStates before localStorage items are cleared.
+      setCompleteStates(Array(totalTiles).fill(false))
+
       // Clear specific localStorage items.
       // This resets all states, but DOES NOT re-render the puzzle unless the page is refreshed.
       localStorage.removeItem('layerOne')
@@ -143,9 +146,6 @@ const Chessmite = ({
       localStorage.removeItem('gameOver')
       localStorage.removeItem('score')
       localStorage.removeItem('completeStates')
-
-      // Directly reset completeStates to all false values
-      setCompleteStates(Array(totalTiles).fill(false))
 
       if(shuffle) {
         setLayerOne(randPopulateLayer(boardDimension))
