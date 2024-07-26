@@ -26,6 +26,9 @@ const Chessmite = ({
   // Helper to load or initialize state
   const loadState = (key, defaultValue) => {
     const saved = localStorage.getItem(key);
+
+    if (saved) {}
+
     return saved ? JSON.parse(saved) : defaultValue;
   }; // custom layer verification
 
@@ -89,13 +92,29 @@ const Chessmite = ({
   const [wildCard, setWildCard] = useState(() => persistMode ? loadState('wildCard', [false, false]) : [false, false]);
   const [gameOver, setGameOver] = useState(() => persistMode ? loadState('gameOver', false) : false);
   const [score, setScore] = useState(() => persistMode ? loadState('score', 0) : 0); // Tile completion
+  //  const [completeStates, setCompleteStates] = useState(() => {
+  //    if(persistMode) {
+  //      return loadState('completeStates', Array(totalTiles).fill(false))
+  //    } else {
+  //      return Array(totalTiles).fill(false)
+  //    }
+  //  })
 
   const [completeStates, setCompleteStates] = useState(() => {
+    let initialState;
+
     if (persistMode) {
-      return loadState('completeStates', Array(totalTiles).fill(false));
+      initialState = loadState('completeStates', Array(totalTiles).fill(false)); // Check and reset if there are any 'true' values and score is less than 5
+
+      if (initialState.includes(true) && score < 5) {
+        initialState = Array(totalTiles).fill(false);
+        localStorage.setItem('completeStates', JSON.stringify(initialState));
+      }
     } else {
-      return Array(totalTiles).fill(false);
+      initialState = Array(totalTiles).fill(false);
     }
+
+    return initialState;
   });
   /*********************************************/
 
@@ -107,6 +126,8 @@ const Chessmite = ({
 
   useEffect(() => {
     if (persistMode && !resetState) {
+      // DEBUG
+      console.log("Updating localStorage with completeStates:", completeStates);
       localStorage.setItem('layerOne', JSON.stringify(layerOne));
       localStorage.setItem('layerTwo', JSON.stringify(layerTwo));
       localStorage.setItem('layerThree', JSON.stringify(layerThree));
@@ -196,7 +217,9 @@ const Chessmite = ({
 
   const setTileComplete = (index, value) => {
     const updatedStates = [...completeStates];
-    updatedStates[index] = value;
+    updatedStates[index] = value; // DEBUG
+
+    console.log("Updating completeStates in setTileComplete:", updatedStates);
     setCompleteStates(updatedStates);
   };
 
