@@ -26,9 +26,6 @@ const Chessmite = ({
   // Helper to load or initialize state
   const loadState = (key, defaultValue) => {
     const saved = localStorage.getItem(key);
-
-    if (saved) {}
-
     return saved ? JSON.parse(saved) : defaultValue;
   }; // custom layer verification
 
@@ -92,37 +89,30 @@ const Chessmite = ({
   const [wildCard, setWildCard] = useState(() => persistMode ? loadState('wildCard', [false, false]) : [false, false]);
   const [gameOver, setGameOver] = useState(() => persistMode ? loadState('gameOver', false) : false);
   const [score, setScore] = useState(() => persistMode ? loadState('score', 0) : 0); // Tile completion
-  //  const [completeStates, setCompleteStates] = useState(() => {
-  //    if(persistMode) {
-  //      return loadState('completeStates', Array(totalTiles).fill(false))
-  //    } else {
-  //      return Array(totalTiles).fill(false)
-  //    }
-  //  })
 
   const [completeStates, setCompleteStates] = useState(() => {
-    let initialState;
-
     if (persistMode) {
-      initialState = loadState('completeStates', Array(totalTiles).fill(false)); // Check and reset if there are any 'true' values and score is less than 5
-
-      if (initialState.includes(true) && score < 5) {
-        initialState = Array(totalTiles).fill(false);
-        localStorage.setItem('completeStates', JSON.stringify(initialState));
-      }
+      return loadState('completeStates', Array(totalTiles).fill(false));
     } else {
-      initialState = Array(totalTiles).fill(false);
+      return Array(totalTiles).fill(false);
     }
-
-    return initialState;
   });
   /*********************************************/
+  // OLD FIX ATTEMPT
+  //  useEffect(() => {
+  //    if(persistMode) {
+  //      if(score < 2) localStorage.setItem('completeStates', JSON.stringify(Array(totalTiles).fill(false)))
+  //    }
+  //  }, [persistMode, score, totalTiles])
+  // FIX ATTEMPT
 
   useEffect(() => {
-    if (persistMode) {
-      if (score < 2) localStorage.setItem('completeStates', JSON.stringify(Array(totalTiles).fill(false)));
+    if (resetState) {
+      // Force the component to re-read from localStorage
+      setCompleteStates(loadState('completeStates', Array(36).fill(false)));
+      setResetState(false);
     }
-  }, [persistMode, score, totalTiles]); // Update localStorage when states change
+  }, [resetState]); // Update localStorage when states change
 
   useEffect(() => {
     if (persistMode && !resetState) {
