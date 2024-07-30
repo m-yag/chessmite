@@ -140,10 +140,6 @@ const Chessmite = ({
   // Update localStorage when states change
   useEffect(() => {
     if(persistMode && !resetState) {
-
-      // DEBUG
-      console.log("Updating localStorage with completeStates:", completeStates)
-
       localStorage.setItem('layerOne', JSON.stringify(layerOne))
       localStorage.setItem('layerTwo', JSON.stringify(layerTwo))
       localStorage.setItem('layerThree', JSON.stringify(layerThree))
@@ -236,10 +232,6 @@ const Chessmite = ({
   const setTileComplete = (index, value) => {
     const updatedStates = [...completeStates]
     updatedStates[index] = value
-
-    // DEBUG
-    console.log("Updating completeStates in setTileComplete:", updatedStates)
-
     setCompleteStates(updatedStates)
   }
 
