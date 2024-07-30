@@ -89,10 +89,17 @@ const Chessmite = ({
   const [wildCard, setWildCard] = useState(() => persistMode ? loadState('wildCard', [false, false]) : [false, false]);
   const [gameOver, setGameOver] = useState(() => persistMode ? loadState('gameOver', false) : false);
   const [score, setScore] = useState(() => persistMode ? loadState('score', 0) : 0); // Tile completion
+  //  const [completeStates, setCompleteStates] = useState(() => {
+  //    if(persistMode) {
+  //      return loadState('completeStates', Array(totalTiles).fill(false))
+  //    } else {
+  //      return Array(totalTiles).fill(false)
+  //    }
+  //  })
 
   const [completeStates, setCompleteStates] = useState(() => {
     if (persistMode) {
-      return loadState('completeStates', Array(totalTiles).fill(false));
+      return score < 5 ? Array(totalTiles).fill(false) : JSON.parse(localStorage.getItem('completeStates'));
     } else {
       return Array(totalTiles).fill(false);
     }
@@ -112,7 +119,7 @@ const Chessmite = ({
       setCompleteStates(loadState('completeStates', Array(36).fill(false)));
       setResetState(false);
     }
-  }, [resetState]); // Update localStorage when states change
+  }, [resetState, setResetState]); // Update localStorage when states change
 
   useEffect(() => {
     if (persistMode && !resetState) {

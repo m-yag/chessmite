@@ -103,9 +103,17 @@ const Chessmite = ({
   const [score, setScore] = useState(() => persistMode ? loadState('score', 0) : 0)
 
   // Tile completion
+//  const [completeStates, setCompleteStates] = useState(() => {
+//    if(persistMode) {
+//      return loadState('completeStates', Array(totalTiles).fill(false))
+//    } else {
+//      return Array(totalTiles).fill(false)
+//    }
+//  })
+
   const [completeStates, setCompleteStates] = useState(() => {
     if(persistMode) {
-      return loadState('completeStates', Array(totalTiles).fill(false))
+      return score < 5 ? Array(totalTiles).fill(false) : JSON.parse(localStorage.getItem('completeStates'))
     } else {
       return Array(totalTiles).fill(false)
     }
